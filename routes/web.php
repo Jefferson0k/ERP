@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CavaliController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
