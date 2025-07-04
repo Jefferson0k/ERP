@@ -1,51 +1,30 @@
 <script setup lang="ts">
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
-import axios from 'axios';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: 'Prueba',
+        href: '/prueba',
     },
 ];
 
-const consultarRuc = async () => {
-    try {
-        const response = await axios.get('http://127.0.0.1:8000/api/consultar-ruc/10763936711');
-        console.log('consultar-ruc');
-        console.log(response);
-    } catch (e) {
-        const error = 'Fallo al llamar al api ' + e;
-        console.log(error);
-    }
-}
-
-const consultarDni = async () => {
-    try {
-        const response = await axios.get('http://127.0.0.1:8000/api/consultar-dni/76393671');
-        console.log('consultar-dni');
-        console.log(response);
-    } catch (e) {
-        const error = 'Fallo al llamar al api ' + e;
-        console.log(error);
-    }
-}
 </script>
 
+
 <template>
-    <Head title="Dashboard" />
+    <Head title="Prueba" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
 
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" @click="consultarRuc()">
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" >
                     Consultar RUC
                 </button>
-                <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" @click="consultarDni()">
+                <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" >
                     Consultar DNI
                 </button>
 
