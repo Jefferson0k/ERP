@@ -11,11 +11,28 @@ export function updateTheme(value: Appearance) {
         const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         const systemTheme = mediaQueryList.matches ? 'dark' : 'light';
 
+        //changeColorLogo(systemTheme); 
+
         document.documentElement.classList.toggle('dark', systemTheme === 'dark');
     } else {
+        //changeColorLogo(value);
+
         document.documentElement.classList.toggle('dark', value === 'dark');
     }
 }
+
+/*
+const changeColorLogo = (value: string) => {
+    if (value == 'light') {
+        let myElement = document.getElementById('fincore-b')!;
+        myElement.style.fill = 'red';
+    } else {
+        let myElement = document.getElementById('fincore-b')!;
+        myElement.style.fill = 'red';
+    }
+
+}
+*/
 
 const setCookie = (name: string, value: string, days = 365) => {
     if (typeof document === 'undefined') {
