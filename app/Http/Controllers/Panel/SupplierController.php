@@ -14,9 +14,6 @@ class SupplierController extends Controller{
     public function create(){
         return Inertia::render('panel/supplier/components/formSupplier');
     }
-    public function committee(){
-        return Inertia::render('panel/supplier/components/committeeSupplier');
-    }
     public function store(SupplierStoreRequests $request){
         $supplier = Supplier::create($request->validated());
         return response()->json([

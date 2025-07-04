@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CavaliController;
+use App\Http\Controllers\Api\ConsultasDni;
 use App\Http\Controllers\Api\SunatController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,4 +14,5 @@ Route::prefix('cavali')->group(function () {
 
 Route::prefix('consultas')->group(function () {
     Route::get('/ruc/{ruc?}', [SunatController::class, 'consultar'])->name('consultar.ruc');
+    Route::get('/consultar-dni/{dni?}', [ConsultasDni::class, 'consultar'])->name('consultar.dni');
 });
