@@ -21,6 +21,13 @@ export default defineConfig({
             },
         }),
     ],
+    server:{
+        host: '0.0.0.0',
+        hmr: {
+            host: 'localhost',
+        },
+        cors: true,
+    },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './resources/js'),

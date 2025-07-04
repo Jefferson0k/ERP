@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ConsultasDni;
 use App\Http\Controllers\Api\ConsultasRucController;
 use App\Http\Controllers\Web\Ejemplo;
+use App\Http\Controllers\Api\CavaliController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
