@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\ConsultasDni;
+use App\Http\Controllers\Api\ConsultasRucController;
+use App\Http\Controllers\Web\Ejemplo;
+use App\Http\Controllers\Web\Prospecto;
 use App\Http\Controllers\Panel\SupplierController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,5 +27,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+Route::get('/prueba',[Ejemplo::class, 'vista']);
+Route::get('/prospecto',[Prospecto::class, 'vista']);
+
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

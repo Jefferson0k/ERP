@@ -10,7 +10,7 @@ import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Prospecto',
         href: '/dashboard',
         icon: LayoutGrid,
     },
@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
 ];
-
+/*
 const footerNavItems: NavItem[] = [
     {
         title: 'Github Repo',
@@ -32,7 +32,7 @@ const footerNavItems: NavItem[] = [
         href: 'https://laravel.com/docs/starter-kits#vue',
         icon: BookOpen,
     },
-];
+]*/
 
 
 </script>
