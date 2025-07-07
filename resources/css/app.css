@@ -166,17 +166,17 @@
     }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); */
 
-body {
-    background-color: blue !important;
-    font-family: "Montserrat", sans-serif !important;
+@theme {
+    /* --font-montserrat: "Montserrat", sans-serif; */
+    --color-skyblue-fincore: #06B4D1;
+    --color-purple-fincore: #613B7E;
+    --color-black-fincore: #424242;
+    --color-grey-general: #D9D9D9;
 }
 
-.wraper-general {
-    background-color: white;
-
-}
 .bg-sidebar {
-    background-color:  white;
+    background-color:  white !important;
 }
+
