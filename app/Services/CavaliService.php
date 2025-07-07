@@ -20,10 +20,14 @@ class CavaliService{
         $this->authUrl = config('services.cavali.auth_url');
         $this->baseUrl = config('services.cavali.base_url');
     }
-    public function getAccessToken(){
+
+    public function getAccessToken() {
         $cachedToken = Cache::get('cavali_access_token');
         if ($cachedToken) {
-            return $cachedToken;
+            return [
+                'access_token' => $cachedToken,
+                'from_cache' => true
+            ];
         }
 
         try {
@@ -35,21 +39,12 @@ class CavaliService{
                 'client_secret' => $this->clientSecret,
                 'grant_type' => 'client_credentials'
             ]);
-
-            if ($response->successful()) {
-                $data = $response->json();
-                $accessToken = $data['access_token'];
-                $expiresIn = $data['expires_in'];
-
-                Cache::put('cavali_access_token', $accessToken, now()->addSeconds($expiresIn - 300));
-
-                return $accessToken;
-            }
-
-            throw new Exception('Error al obtener token: ' . $response->body());
-
+            return $response->json();
         } catch (Exception $e) {
-            throw new Exception('Error en autenticación CAVALI: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'exception' => $e->getMessage()
+            ];
         }
     }
     public function consultarFacturas($filtros){

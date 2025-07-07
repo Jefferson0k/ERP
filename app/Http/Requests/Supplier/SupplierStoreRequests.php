@@ -10,7 +10,6 @@ class SupplierStoreRequests extends FormRequest{
     }
     public function rules(): array{
         return [
-            'registration_date'     => ['required', 'date'],
             'sales_executive'       => ['required', 'string', 'max:255'],
             'ruc'                   => ['required', 'digits:11', 'unique:suppliers,ruc'],
             'business_name'         => ['required', 'string', 'max:255'],

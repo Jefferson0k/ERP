@@ -119,21 +119,16 @@ class CavaliController extends Controller{
         }
         return $array;
     }
-    public function probarConexion(): JsonResponse{
+    public function probarConexion(): JsonResponse {
         try {
-            $token = $this->cavaliService->getAccessToken();
-            
-            return response()->json([
-                'success' => true,
-                'message' => 'Conexión exitosa con CAVALI',
-                'token_obtenido' => !empty($token)
-            ]);
-
+            $respuesta = $this->cavaliService->getAccessToken();
+            return response()->json($respuesta);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'error' => 'Error de conexión: ' . $e->getMessage()
+                'error' => $e->getMessage()
             ], 500);
         }
     }
+
 }
