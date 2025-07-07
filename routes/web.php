@@ -13,7 +13,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('Supplier', SupplierController::class);
+        Route::resource('Supplier', SupplierController::class);
+
+
+    Route::prefix('panel')->group(function () {
+        Route::get('/comite', [SupplierController::class, 'comite'])->name('Supplier.comite');
+        Route::get('/deudor', [SupplierController::class, 'deudor'])->name('Supplier.deudor');
+        Route::get('/list', [SupplierController::class, 'list'])->name('Supplier.list');
+    });
 });
 
 require __DIR__.'/settings.php';

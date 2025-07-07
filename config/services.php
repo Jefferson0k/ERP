@@ -35,13 +35,12 @@ return [
         ],
     ],
 
-    'cavali' => [
+   'cavali' => [
         'client_id' => env('CAVALI_CLIENT_ID'),
         'client_secret' => env('CAVALI_CLIENT_SECRET'),
         'api_key' => env('CAVALI_API_KEY'),
         'auth_url' => env('CAVALI_AUTH_URL'),
         'base_url' => env('CAVALI_BASE_URL'),
-        'access_token' => env('CAVALI_ACCESS_TOKEN'),
     ],
 
 ];
