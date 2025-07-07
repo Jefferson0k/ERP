@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
-class ConsultasRucController extends Controller{
-    public function consultar(string $ruc): JsonResponse{
+class SunatController extends Controller{
+public function consultar(string $ruc = null): JsonResponse{
         if (empty($ruc) || !preg_match('/^\d{11}$/', $ruc)) {
             return response()->json(['error' => 'Debe proporcionar un RUC válido de 11 dígitos'], 400);
         }
@@ -36,3 +36,4 @@ class ConsultasRucController extends Controller{
         }
     }
 }
+

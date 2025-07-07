@@ -15,14 +15,9 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Prueba',
-        href: '/prueba',
-        icon: Shield,
-    },
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: UserCog,
+        title: 'Proveedor',
+        href: '/Supplier',
+        icon: LayoutGrid,
     },
 ];
 /*
