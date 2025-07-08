@@ -11,13 +11,18 @@ import AppLogo from './AppLogo.vue';
 const mainNavItems: NavItem[] = [
     {
         title: 'Prospecto',
-        href: '/dashboard',
+        href: '/Supplier',
         icon: LayoutGrid,
     },
     {
         title: 'Proveedor',
-        href: '/Supplier',
-        icon: LayoutGrid,
+        href: '/dashboard',
+        icon: Folder,
+    },
+    {
+        title: 'Prueba',
+        href: '/prueba',
+        icon: Shield,
     },
 ];
 /*

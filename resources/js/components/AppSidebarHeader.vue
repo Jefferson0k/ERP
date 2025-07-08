@@ -14,8 +14,11 @@ withDefaults(
 </script>
 
 <template>
-    <header
+    <!-- >header
         class="flex h-[84px] shrink-0 items-center gap-2 border-b border-grey-general px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[68px] md:px-4"
+    > -->
+    <header
+        class="fixed bg-white w-full z-index-header flex h-[84px] shrink-0 items-center gap-2 border-b border-grey-general px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[67px] md:px-4"
     >
         <div class="flex items-center gap-2">
             <SidebarTrigger class="-ml-1" />

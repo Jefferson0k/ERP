@@ -19,6 +19,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('Supplier', SupplierController::class);
 
+        
+    //Route::get('Supplier/create', [SupplierController::class, 'create'])->name('Supplier.create');
+
 
     Route::prefix('panel')->group(function () {
         Route::get('/comite', [SupplierController::class, 'comite'])->name('Supplier.comite');

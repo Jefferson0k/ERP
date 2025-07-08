@@ -2,8 +2,8 @@
 
   <Head title="Nuevo proveedor" />
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-2">
-      <Card class="mt-4 flex flex-col gap-4">
+    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-10 mt-[84px]">
+      <Card class="flex flex-col gap-4">
         <CardHeader>
           <CardTitle>Nuevo Proveedor</CardTitle>
           <CardDescription>Complete los campos y consulte el RUC para autocompletar</CardDescription>
@@ -203,8 +203,8 @@ import { Button } from '@/components/ui/button'
 import type { SupplierRequest, SupplierCreateResponse } from '@/types/supplier'
 
 const breadcrumbs = [
-  { title: 'Proveedores', href: '/Supplier' },
-  { title: 'Crear proveedor', href: '/Supplier/create' },
+  { title: 'Prospecto', href: '/Supplier' },
+  { title: 'Crear prospecto', href: '/Supplier/create' },
 ]
 
 // Estados de carga
@@ -323,7 +323,7 @@ const guardarProveedor = handleSubmit(async (formData) => {
     if (res.status === 200 || res.status === 201) {
       toast.success(res.data.message || 'Proveedor guardado exitosamente')
       setTimeout(() => {
-        router.visit('/Panel/comite')
+        router.visit('/panel/comite')
       }, 1500)
     }
   } catch (err: any) {

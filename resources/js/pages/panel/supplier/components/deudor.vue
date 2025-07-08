@@ -106,9 +106,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
 const breadcrumbs = [
-    { title: 'Proveedores', href: '/Supplier' },
-    { title: 'Crear proveedor', href: '/Supplier/create' },
-    { title: 'Comité proveedor', href: '/Panel/comite' },
+    { title: 'Prospecto', href: '/Supplier' },
+    { title: 'Crear prospecto', href: '/Supplier/create' },
+    { title: 'Comité prospecto', href: '/Panel/comite' },
     { title: 'Deudor o adeudante', href: '/Panel/deudor' }
 ]
 </script>
