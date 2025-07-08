@@ -179,4 +179,13 @@
 .bg-sidebar {
     background-color:  white !important;
 }
+.general-menu-button span {
+    color: white;
+}
+.general-menu-button svg {
+    color: white;
+}
+.z-index-header {
+    z-index: 10;
+}
 

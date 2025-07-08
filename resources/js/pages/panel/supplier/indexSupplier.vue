@@ -1,7 +1,7 @@
 <template>
     <Head title="Supplier"></Head>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-2">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-10  mt-[84px]">
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
                 <tableSupplier/>
             </div>
@@ -15,11 +15,11 @@ import tableSupplier from './components/tableSupplier.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Crear proveedor',
+        title: 'Crear prospecto',
         href: '/Supplier/create',
     },
     {
-        title: 'Proveedor',
+        title: 'Prospecto',
         href: '/Supplier',
     },
 ];

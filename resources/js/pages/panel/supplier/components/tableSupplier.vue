@@ -1,5 +1,5 @@
 <template>
-    <div class="container-table">
+    <div class="container-table overflow-x-auto mt-[84px]">
         <LoadingTable v-if="loading" :headers="7" :row-count="12" />
         <div v-else class="table-content">
             <div class="table-container">
