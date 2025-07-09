@@ -21,7 +21,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Prueba',
-        href: '/prueba',
+        href: '/prospecto',
         icon: Shield,
     },
 ];
