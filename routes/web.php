@@ -17,21 +17,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-        Route::resource('Supplier', SupplierController::class);
-
-        
-    //Route::get('Supplier/create', [SupplierController::class, 'create'])->name('Supplier.create');
-
-
+    Route::resource('Supplier', SupplierController::class);
     Route::prefix('panel')->group(function () {
         Route::get('/comite', [SupplierController::class, 'comite'])->name('Supplier.comite');
         Route::get('/deudor', [SupplierController::class, 'deudor'])->name('Supplier.deudor');
         Route::get('/list', [SupplierController::class, 'list'])->name('Supplier.list');
     });
+
+
+    Route::get('/prospecto', [Prospecto::class, 'index']);
 });
 
-Route::get('/prueba',[Ejemplo::class, 'vista']);
-Route::get('/prospecto',[Prospecto::class, 'vista']);
+Route::get('/prueba', [Ejemplo::class, 'vista']);
+//Route::get('/prospecto',[Prospecto::class, 'vista']);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
