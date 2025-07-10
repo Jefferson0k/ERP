@@ -10,7 +10,7 @@ return new class extends Migration{
             $table->id();
             $table->date('registration_date')->nullable();
             $table->string('sales_executive')->nullable();
-            $table->string('ruc', 20)->unique();
+            $table->string('ruc', 20)->unique()->nullable();
             $table->string('business_name')->nullable();
             $table->string('trade_name')->nullable();
             $table->string('address')->nullable();
@@ -24,6 +24,9 @@ return new class extends Migration{
             $table->string('website')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
+
+            $table->string('dni', 20)->unique()->nullable(); //tony
+            $table->string('ce', 20)->unique()->nullable(); //tony
         });
     }
     public function down(): void{

@@ -1,22 +1,49 @@
 <template>
 
-  <Head title="Nuevo proveedor" />
+  <Head title="Nuevo prospecto" />
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-10 mt-[84px]">
-      <Card class="flex flex-col gap-4">
+    <div class="flex h-full flex-1 flex-col rounded-xl p-10 mt-[67px]">
+
+      <div class="bg-purple-fincore rounded-t-xl p-5">
+        <h1 class="m-0 text-white text-3xl font-bold">Nuevo prospecto</h1>
+      </div>
+
+
+
+      
+      <Card class="flex flex-col gap-0 inset-ring inset-ring-gray-50 shadow-none rounded-t-none rounded-b-xl mb-10 py-5">
         <CardHeader>
-          <CardTitle>Nuevo Proveedor</CardTitle>
-          <CardDescription>Complete los campos y consulte el RUC para autocompletar</CardDescription>
+          <CardDescription class="text-black-fincore font-medium">Selecciona el tipo de documento:</CardDescription>
         </CardHeader>
         <CardContent>
-          <form @submit.prevent="guardarProveedor" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form @submit.prevent="guardarProspecto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+    <Select v-model="tipoDocumentoElegido">
+      <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start py-2 px-3 active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3 mb-2">
+        <SelectValue placeholder="Tipo de documento"/>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Elige el tipo</SelectLabel>
+          <SelectItem v-for="item in tipoDocumento" :key="item" :value="item" class="">
+            {{ item }}
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+
+
+    
+
+
+
             <!-- RUC -->
-            <FormField name="ruc" v-slot="{ componentField }">
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="ruc" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">RUC <span class="text-red-600">*</span></FormLabel>
                 <FormControl>
                   <Input id="ruc" v-bind="componentField" @blur="consultarRuc" @keyup.enter="consultarRuc"
-                    class="w-full" :disabled="consultandoRuc" />
+                    class="w-full shadow-none rounded-lg border-gray-200" :disabled="consultandoRuc" />
                 </FormControl>
                 <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
                   {{ componentField.errorMessage }}
@@ -27,12 +54,73 @@
               </FormItem>
             </FormField>
 
-            <!-- Campos autocompletados -->
-            <FormField name="business_name" v-slot="{ componentField }">
+
+            <!-- RUC -->
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'RUC'" name="dni" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">DNI<span class="text-red-600">*</span></FormLabel>
+                <FormControl>
+                  <Input id="dni" v-bind="componentField" @blur="consultarRuc" @keyup.enter="consultarRuc"
+                    class="w-full shadow-none rounded-lg border-gray-200" :disabled="consultandoRuc" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+                <p v-if="consultandoRuc" class="text-blue-600 text-sm mt-1">
+                  Consultando RUC...
+                </p>
+              </FormItem>
+            </FormField>
+
+
+            <div v-if="tipoDocumentoElegido === 'Carnet Extranjería'" class="flex-1 space-y-1.5">
+                <Label for="reporte" class="text-sm font-medium pb-3">Carnet Extranjería</Label>
+                <Button variant="outline" class="w-full bg-skyblue-fincore border-0 text-white" as="label" :disabled="isUploading">
+                    <UploadCloud class="w-4 h-4 mr-2" />
+                    {{ isUploading ? 'Procesando...' : 'Subir documento' }}
+                    <input id="reporte" type="file" class="hidden" accept=".pdf" @change="handleFileUpload"
+                        :disabled="isUploading" />
+                </Button>
+                <p v-if="uploadedFileName" class="text-sm text-green-600">
+                    Archivo cargado: {{ uploadedFileName }}
+                </p>
+            </div>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="activity_start_date" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Fecha de Inscripción</FormLabel>
+                <FormControl>
+                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+
+
+            
+            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="sales_executive" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Ejecutivo Comercial</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+
+
+            
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="business_name" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Razón Social <span class="text-red-600">*</span></FormLabel>
                 <FormControl>
-                  <Input class="w-full" disabled v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
                 </FormControl>
                 <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
                   {{ componentField.errorMessage }}
@@ -40,11 +128,12 @@
               </FormItem>
             </FormField>
 
-            <FormField name="trade_name" v-slot="{ componentField }">
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="trade_name" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Nombre Comercial</FormLabel>
                 <FormControl>
-                  <Input class="w-full" disabled v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
                 </FormControl>
                 <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
                   {{ componentField.errorMessage }}
@@ -52,11 +141,29 @@
               </FormItem>
             </FormField>
 
-            <FormField name="address" v-slot="{ componentField }">
+
+            <!-- SIN CAMPO -->
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="activity_start_date" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Inicio de actividad</FormLabel>
+                <FormControl>
+                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+
+
+
+            
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="address" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Dirección <span class="text-red-600">*</span></FormLabel>
                 <FormControl>
-                  <Input class="w-full" disabled v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
                 </FormControl>
                 <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
                   {{ componentField.errorMessage }}
@@ -64,114 +171,188 @@
               </FormItem>
             </FormField>
 
-            <FormField name="economic_activity" v-slot="{ componentField }">
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="economic_activity" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Actividad Económica</FormLabel>
                 <FormControl>
-                  <Input class="w-full" disabled v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
                 </FormControl>
               </FormItem>
             </FormField>
 
-            <FormField name="activity_start_date" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Fecha de Inicio de Actividades</FormLabel>
-                <FormControl>
-                  <Input type="date" class="w-full" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
+            
 
-            <!-- Campos editables -->
-            <FormField name="email" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Correo Electrónico</FormLabel>
-                <FormControl>
-                  <Input class="w-full" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
+        
+            
 
-            <FormField name="website" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Sitio Web</FormLabel>
-                <FormControl>
-                  <Input class="w-full" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-            <FormField name="sales_executive" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Ejecutivo de Ventas</FormLabel>
-                <FormControl>
-                  <Input class="w-full" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-            <FormField name="contact_person" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Persona de Contacto</FormLabel>
-                <FormControl>
-                  <Input class="w-full" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-            <FormField name="position" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Cargo</FormLabel>
-                <FormControl>
-                  <Input class="w-full" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-            <FormField name="expected_rate" v-slot="{ componentField }">
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="expected_rate" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Tasa Esperada (%)</FormLabel>
                 <FormControl>
-                  <Input class="w-full" type="number" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
                 </FormControl>
               </FormItem>
             </FormField>
-
-            <FormField name="commission" v-slot="{ componentField }">
+            
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="commission" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Comisión (%)</FormLabel>
                 <FormControl>
-                  <Input class="w-full" type="number" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
                 </FormControl>
               </FormItem>
             </FormField>
 
-            <FormField name="notes" v-slot="{ componentField }">
-              <FormItem class="md:col-span-2">
-                <FormLabel class="block">Notas</FormLabel>
+
+      <div v-if="tipoDocumentoElegido === 'RUC'" class="border-b border-gray-100 py-3 col-span-1 md:col-span-2 lg:col-span-3 mb-2">
+        <h3 class="m-0 text-purple-fincore text-xl font-bold">Datos de contacto</h3>
+      </div>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="contact_person" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">DNI</FormLabel>
                 <FormControl>
-                  <Textarea rows="4" class="w-full" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+
+            
+            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="contact_person" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Nombres y Apellidos</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="address" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Dirección <span class="text-red-600">*</span></FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="activity_start_date" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Fecha de Nacimiento</FormLabel>
+                <FormControl>
+                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="contact_person" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Sexo</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="contact_person" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Estado Civil</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="position" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Cargo</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="email" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Correo Electrónico</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="expected_rate" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Tasa Esperada (%)</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+            
+            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="commission" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Comisión (%)</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
+                </FormControl>
+              </FormItem>
+            </FormField>
+
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="website" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Sitio Web</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+
+            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="website" v-slot="{ componentField }">
+              <FormItem>
+                <FormLabel class="block">Número Móvil</FormLabel>
+                <FormControl>
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+            
+            
+            
+            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="notes" v-slot="{ componentField }">
+              <FormItem class="col-span-1 md:col-span-2 lg:col-span-3">
+                <FormLabel class="block">Observaciones</FormLabel>
+                <FormControl>
+                  <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
                 </FormControl>
               </FormItem>
             </FormField>
 
             <!-- Botones -->
-            <div class="flex justify-end gap-4 md:col-span-2 mt-4">
-              <Button type="reset" variant="destructive" @click="resetForm">Eliminar</Button>
-              <Button type="submit" :disabled="guardando">
-                {{ guardando ? 'Guardando...' : 'Enviar' }}
+            <div v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" class="col-span-1 md:col-span-2 lg:col-span-3 mt-3 text-center">
+              <!--- <Button type="reset" variant="destructive" class="bg" @click="resetForm">Eliminar</Button> -->
+              <Button type="submit" :disabled="guardando" class="bg-skyblue-fincore">
+                {{ guardando ? 'Guardando...' : 'Guardar' }}
               </Button>
             </div>
           </form>
@@ -200,16 +381,32 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import type { SupplierRequest, SupplierCreateResponse } from '@/types/supplier'
+import type { ProspectoRequest, ProspectoCreateResponse } from '@/types/prospecto'
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { UploadCloud } from 'lucide-vue-next'
 
 const breadcrumbs = [
-  { title: 'Prospecto', href: '/Supplier' },
-  { title: 'Crear prospecto', href: '/Supplier/create' },
+  { title: 'Prospecto', href: '/prospecto' },
 ]
 
 // Estados de carga
 const consultandoRuc = ref(false)
 const guardando = ref(false)
+
+const tipoDocumentoElegido = ref('')
+const tipoDocumento = ref(
+  ['DNI', 'RUC', 'Carnet Extranjería']
+)
+const name = ref('')
 
 const formSchema = toTypedSchema(z.object({
   ruc: z.string().length(11, 'RUC debe tener 11 dígitos'),
@@ -226,9 +423,11 @@ const formSchema = toTypedSchema(z.object({
   expected_rate: z.coerce.number().optional(),
   commission: z.coerce.number().optional(),
   notes: z.string().optional(),
+
+  dni: z.string().length(8, 'RUC debe tener 8 dígitos').optional(), //tony
 }))
 
-const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useForm<SupplierRequest>({
+const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useForm<ProspectoRequest>({
   validationSchema: formSchema,
   initialValues: {
     ruc: '',
@@ -245,6 +444,8 @@ const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useFor
     expected_rate: 0,
     commission: 0,
     notes: '',
+
+    dni: '', //tony
   }
 })
 
@@ -314,20 +515,22 @@ const consultarRuc = async () => {
   }
 }
 
-const guardarProveedor = handleSubmit(async (formData) => {
+const guardarProspecto = handleSubmit(async (formData) => {
   guardando.value = true
 
+  alert('adsfads');
+
   try {
-    const res = await axios.post<SupplierCreateResponse>('/Supplier', formData)
+    const res = await axios.post<ProspectoCreateResponse>('/Supplier', formData)
 
     if (res.status === 200 || res.status === 201) {
-      toast.success(res.data.message || 'Proveedor guardado exitosamente')
-      setTimeout(() => {
-        router.visit('/panel/comite')
-      }, 1500)
+      toast.success(res.data.message || 'Prospecto guardado exitosamente')
+      //setTimeout(() => {
+        router.visit('/prospecto/reporte')
+      //}, 1500)
     }
   } catch (err: any) {
-    console.error('Error al guardar proveedor:', err)
+    console.error('Error al guardar prospecto:', err)
 
     if (err?.response?.status === 422) {
       if (err?.response?.data?.errors) {
@@ -344,7 +547,7 @@ const guardarProveedor = handleSubmit(async (formData) => {
       }
     }
     else if (err?.response?.status === 409) {
-      toast.error('El proveedor ya existe en el sistema')
+      toast.error('El prospecto ya existe en el sistema')
     }
     else if (err?.response?.status === 500) {
       toast.error('Error del servidor. Intente más tarde')
@@ -356,7 +559,7 @@ const guardarProveedor = handleSubmit(async (formData) => {
       toast.error('La operación tomó demasiado tiempo. Intente de nuevo')
     }
     else {
-      toast.error(err?.response?.data?.message || 'Error al guardar el proveedor')
+      toast.error(err?.response?.data?.message || 'Error al guardar el prospecto')
     }
   } finally {
     guardando.value = false
