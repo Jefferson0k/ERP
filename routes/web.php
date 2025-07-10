@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\ConsultasDni;
-use App\Http\Controllers\Api\ConsultasRucController;
 use App\Http\Controllers\Web\Ejemplo;
 use App\Http\Controllers\Web\Prospecto;
 use App\Http\Controllers\Panel\SupplierController;
@@ -26,10 +24,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::get('/prospecto', [Prospecto::class, 'index']);
+    Route::prefix('prospecto')->group(function () {
+        Route::get('/reporte', [Prospecto::class, 'reporte'])->name('prospecto.reporte');
+    });
 });
 
 Route::get('/prueba', [Ejemplo::class, 'vista']);
-//Route::get('/prospecto',[Prospecto::class, 'vista']);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

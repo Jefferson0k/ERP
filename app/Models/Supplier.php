@@ -23,5 +23,7 @@ class Supplier extends Model{
         'email',
         'website',
         'notes',
+
+        'dni', //tony
     ];
 }

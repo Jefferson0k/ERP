@@ -187,8 +187,8 @@ class SunatReportController extends Controller{
             $declaraciones['EjercicioAnterior'][] = [$meses[$i], $datosAnterior[$i] ?? null];
             $declaraciones['EjercicioActual'][] = [$meses[$i], $datosActual[$i] ?? null];
         }*/
-        //$pagina_3 = $pdf->getPages()[2]->getText();
-    
+        
+        //$pagina_3 = $pdf->getPages()[2]->getText();    
         $text = $pdf->getText();
         $text = str_replace("\n", ' ', $text);
 
@@ -224,15 +224,21 @@ class SunatReportController extends Controller{
                 unset($datos_bloque_2[$i]);
             }
         }
-
+        
         $declaraciones_mensuales = array('EjercicioAnterior' => [], 'EjercicioActual' => []);
-
         for ($i = 0; $i < count($presento_bloque_1); $i++) {
-            array_push($declaraciones_mensuales['EjercicioAnterior'], [$meses[$i], $datos_bloque_1[$i]]);
+            if (isset($datos_bloque_1[$i])) {
+                array_push($declaraciones_mensuales['EjercicioAnterior'], [$meses[$i], $datos_bloque_1[$i]]);
+            } else {
+                array_push($declaraciones_mensuales['EjercicioAnterior'], [$meses[$i], '']);
+            }
         }
-
-        for ($i = 0; $i < count($presento_bloque_2); $i++) {
-            array_push($declaraciones_mensuales['EjercicioActual'], [$meses[$i], $datos_bloque_2[$i]]);
+        for ($i = 0; $i < count($meses); $i++) {
+            if (isset($datos_bloque_2[$i])) {
+                array_push($declaraciones_mensuales['EjercicioActual'], [$meses[$i], $datos_bloque_2[$i]]);
+            } else {
+                array_push($declaraciones_mensuales['EjercicioActual'], [$meses[$i], '']);
+            }
         }
 
         // ================= 4. VENTAS =================

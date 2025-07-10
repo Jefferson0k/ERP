@@ -189,3 +189,13 @@
     z-index: 10;
 }
 
+svg.lucide-chevron-down-icon {
+    float: right;
+    margin-top: 5px;
+}
+
+.sidebar-header ul li a {
+    padding: 0;
+    height: 32px;
+}
+
