@@ -25,5 +25,6 @@ class Supplier extends Model{
         'notes',
 
         'dni', //tony
+        'ce', //tony
     ];
 }

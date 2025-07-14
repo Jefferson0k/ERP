@@ -25,7 +25,8 @@ class SupplierStoreRequests extends FormRequest{
             'website'               => ['nullable', 'url', 'max:255'],
             'notes'                 => ['nullable', 'string'],
 
-            'dni'                   => ['required', 'digits:8'],
+            'dni'                   => ['nullable'], //tony
+            'ce'                    => ['nullable'], //tony
         ];
     }
 }

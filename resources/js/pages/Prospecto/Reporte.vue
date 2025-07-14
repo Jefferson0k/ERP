@@ -607,8 +607,9 @@ import { Pagination } from '@/components/ui/pagination'
 
 // Breadcrumbs
 const breadcrumbs = [
-  { title: 'Prospecto', href: '/prospecto' },
-  { title: 'Registro de Reporte Tributario', href: '/prospecto/reporte' },
+  { title: 'Prospectos', href: '/prospectos' },
+  { title: 'Prospecto', href: '/prospectos/prospecto' },
+  { title: 'Reporte Tributario', href: '/prospectos/prospecto/reporte' },
 ]
 
 // Estados

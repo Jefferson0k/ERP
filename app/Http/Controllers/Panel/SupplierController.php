@@ -11,8 +11,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SupplierController extends Controller{
+
     public function index(){
-        return Inertia::render('panel/supplier/indexSupplier');
+        return Inertia::render('panel/supplier/indexSupplier', [
+            'prospects' => Supplier::all()
+        ]);
     }
     public function create(){
         return Inertia::render('panel/supplier/components/formSupplier');

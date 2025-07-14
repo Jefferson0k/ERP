@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CavaliController;
 use App\Http\Controllers\Api\ConsultasDni;
 use App\Http\Controllers\Api\SunatController;
 use App\Http\Controllers\Api\SunatReportController;
+use App\Http\Controllers\Web\ProspectoController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('cavali')->group(function () {
@@ -19,3 +20,6 @@ Route::prefix('consultas')->group(function () {
 });
 
 Route::post('/procesar-pdf-sunat', [SunatReportController::class, 'procesar']);
+
+Route::post('/prospecto/guardar_dni', [ProspectoController::class, 'guardarDni']);
+Route::post('/prospecto/guardar_ce', [ProspectoController::class, 'guardarCe']);

@@ -27,6 +27,11 @@ return new class extends Migration{
 
             $table->string('dni', 20)->unique()->nullable(); //tony
             $table->string('ce', 20)->unique()->nullable(); //tony
+            $table->string('nombre')->nullable(); //tony
+            $table->date('fecha_nacimiento')->nullable(); //tony
+            $table->string('sexo')->nullable(); //tony
+            $table->string('estado_civil')->nullable(); //tony
+            $table->string('numero_movil')->nullable(); //tony
         });
     }
     public function down(): void{

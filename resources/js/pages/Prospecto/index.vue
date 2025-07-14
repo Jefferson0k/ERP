@@ -1,568 +1,372 @@
 <template>
 
-  <Head title="Nuevo prospecto" />
+  <Head title="Prospectos" />
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="flex h-full flex-1 flex-col rounded-xl p-10 mt-[67px]">
+    <div class="p-10 mt-[67px]">
 
       <div class="bg-purple-fincore rounded-t-xl p-5">
-        <h1 class="m-0 text-white text-3xl font-bold">Nuevo prospecto</h1>
+        <h1 class="m-0 text-white text-3xl font-bold">Prospectos</h1>
       </div>
-
-
-
       
-      <Card class="flex flex-col gap-0 inset-ring inset-ring-gray-50 shadow-none rounded-t-none rounded-b-xl mb-10 py-5">
-        <CardHeader>
-          <CardDescription class="text-black-fincore font-medium">Selecciona el tipo de documento:</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form @submit.prevent="guardarProspecto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="inset-ring inset-ring-gray-100 rounded-t-none rounded-b-xl p-5">
 
-    <Select v-model="tipoDocumentoElegido">
-      <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start py-2 px-3 active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3 mb-2">
-        <SelectValue placeholder="Tipo de documento"/>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Elige el tipo</SelectLabel>
-          <SelectItem v-for="item in tipoDocumento" :key="item" :value="item" class="">
-            {{ item }}
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-
-
-    
-
-
-
-            <!-- RUC -->
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="ruc" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">RUC <span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input id="ruc" v-bind="componentField" @blur="consultarRuc" @keyup.enter="consultarRuc"
-                    class="w-full shadow-none rounded-lg border-gray-200" :disabled="consultandoRuc" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-                <p v-if="consultandoRuc" class="text-blue-600 text-sm mt-1">
-                  Consultando RUC...
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            <!-- RUC -->
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'RUC'" name="dni" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">DNI<span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input id="dni" v-bind="componentField" @blur="consultarRuc" @keyup.enter="consultarRuc"
-                    class="w-full shadow-none rounded-lg border-gray-200" :disabled="consultandoRuc" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-                <p v-if="consultandoRuc" class="text-blue-600 text-sm mt-1">
-                  Consultando RUC...
-                </p>
-              </FormItem>
-            </FormField>
+                      <!-- <Table>
+                        <TableHeader class="table-header-row">
+                            <TableRow>
+                                <TableHead class="table-head">RUC</TableHead>
+                                <TableHead class="table-head">Razón Social</TableHead>
+                                <TableHead class="table-head">Nombre Comercial</TableHead>
+                                <TableHead class="table-head-status">Dirección</TableHead>
+                                <TableHead class="table-head-actions">Actividad Económica</TableHead>
+                                <TableHead class="table-head-actions">F. Actividades</TableHead>
+                                <TableHead class="table-head-actions">Email</TableHead>
+                                <TableHead class="table-head-actions">Persona Contacto</TableHead>
+                                <TableHead class="table-head-actions">Cargo</TableHead>
+                                <TableHead class="table-head-actions">Tasa Esperada</TableHead>
+                                <TableHead class="table-head-actions">Comisión</TableHead>
+                                <TableHead class="table-head-actions">Estado</TableHead>
+                                <TableHead class="table-head-actions">Acciones</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody class="table-body">
+                            <TableRow v-for="supplier in suppliers" :key="supplier.id">
+                                <TableHead>{{ supplier.ruc }}</TableHead>
+                                <TableHead>{{ supplier.razon_social }}</TableHead>
+                                <TableHead>{{ supplier.business_name }}</TableHead>
+                                <TableHead>{{ supplier.address }}</TableHead>
+                                <TableHead>{{ supplier.economic_activity }}</TableHead>
+                                <TableHead>{{ supplier.fecha_inicio_actividades }}</TableHead>
+                                <TableHead>{{ supplier.email }}</TableHead>
+                                <TableHead>{{ supplier.persona_contacto }}</TableHead>
+                                <TableHead>{{ supplier.position }}</TableHead>
+                                <TableHead>{{ supplier.expected_rate }}%</TableHead>
+                                <TableHead>{{ supplier.commission }}%</TableHead>
+                                <TableHead>
+                                    <span :class="supplier.estado === 'activo' ? 'text-green-600' : 'text-red-600'">
+                                        {{ supplier.estado }}
+                                    </span>
+                                </TableHead>
+                                <TableHead class="flex gap-1">
+                                    <button class="bg-blue-500 text-white px-2 py-1 rounded" @click="verProveedor(supplier)">Ver</button>
+                                    <button class="bg-yellow-500 text-white px-2 py-1 rounded" @click="editarProveedor(supplier)">Editar</button>
+                                    <button class="bg-red-500 text-white px-2 py-1 rounded" @click="eliminarProveedor(supplier.id)">Eliminar</button>
+                                </TableHead>
+                            </TableRow>
+                        </TableBody>
+                    </Table> -->
 
 
-            <div v-if="tipoDocumentoElegido === 'Carnet Extranjería'" class="flex-1 space-y-1.5">
-                <Label for="reporte" class="text-sm font-medium pb-3">Carnet Extranjería</Label>
-                <Button variant="outline" class="w-full bg-skyblue-fincore border-0 text-white" as="label" :disabled="isUploading">
-                    <UploadCloud class="w-4 h-4 mr-2" />
-                    {{ isUploading ? 'Procesando...' : 'Subir documento' }}
-                    <input id="reporte" type="file" class="hidden" accept=".pdf" @change="handleFileUpload"
-                        :disabled="isUploading" />
-                </Button>
-                <p v-if="uploadedFileName" class="text-sm text-green-600">
-                    Archivo cargado: {{ uploadedFileName }}
-                </p>
-            </div>
+                    <div class="w-full">
+    <div class="flex items-center py-4">
+      <Input
+        class="max-w-sm"
+        placeholder="Filter rucs..."
+        :model-value="table.getColumn('ruc')?.getFilterValue() as string"
+        @update:model-value=" table.getColumn('ruc')?.setFilterValue($event)"
+      />
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child>
+          <Button variant="outline" class="ml-auto">
+            Columns <ChevronDown class="ml-2 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuCheckboxItem
+            v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
+            :key="column.id"
+            class="capitalize"
+            :model-value="column.getIsVisible()"
+            @update:model-value="(value) => {
+              column.toggleVisibility(!!value)
+            }"
+          >
+            {{ column.id }}
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+    <div class="rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
+            <TableHead v-for="header in headerGroup.headers" :key="header.id">
+              <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header" :props="header.getContext()" />
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <template v-if="table.getRowModel().rows?.length">
+            <template v-for="row in table.getRowModel().rows" :key="row.id">
+              <TableRow :data-state="row.getIsSelected() && 'selected'">
+                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+                  <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                </TableCell>
+              </TableRow>
+              <TableRow v-if="row.getIsExpanded()">
+                <TableCell :colspan="row.getAllCells().length">
+                  {{ JSON.stringify(row.original) }}
+                </TableCell>
+              </TableRow>
+            </template>
+          </template>
 
+          <TableRow v-else>
+            <TableCell
+              :colspan="columns.length"
+              class="h-24 text-center"
+            >
+              No results.
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
 
-            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="activity_start_date" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Fecha de Inscripción</FormLabel>
-                <FormControl>
-                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            
-            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="sales_executive" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Ejecutivo Comercial</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="business_name" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Razón Social <span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="trade_name" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Nombre Comercial</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            <!-- SIN CAMPO -->
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="activity_start_date" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Inicio de actividad</FormLabel>
-                <FormControl>
-                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-
-            
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="address" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Dirección <span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="economic_activity" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Actividad Económica</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-            
-
-        
-            
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="expected_rate" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Tasa Esperada (%)</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-            
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="commission" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Comisión (%)</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-
-      <div v-if="tipoDocumentoElegido === 'RUC'" class="border-b border-gray-100 py-3 col-span-1 md:col-span-2 lg:col-span-3 mb-2">
-        <h3 class="m-0 text-purple-fincore text-xl font-bold">Datos de contacto</h3>
+    <div class="flex items-center justify-end space-x-2 py-4">
+      <div class="flex-1 text-sm text-muted-foreground">
+        {{ table.getFilteredSelectedRowModel().rows.length }} of
+        {{ table.getFilteredRowModel().rows.length }} row(s) selected.
       </div>
+      <div class="space-x-2">
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="!table.getCanPreviousPage()"
+          @click="table.previousPage()"
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="!table.getCanNextPage()"
+          @click="table.nextPage()"
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  </div>
 
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="contact_person" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">DNI</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-            
-            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="contact_person" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Nombres y Apellidos</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="address" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Dirección <span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" disabled v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="activity_start_date" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Fecha de Nacimiento</FormLabel>
-                <FormControl>
-                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="contact_person" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Sexo</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="contact_person" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Estado Civil</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="position" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Cargo</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="email" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Correo Electrónico</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="expected_rate" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Tasa Esperada (%)</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-            
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="commission" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Comisión (%)</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" type="number" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="website" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Sitio Web</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-
-            <FormField v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" name="website" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">Número Móvil</FormLabel>
-                <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-              </FormItem>
-            </FormField>
-            
-            
-            
-            <FormField v-if="tipoDocumentoElegido === 'RUC'" name="notes" v-slot="{ componentField }">
-              <FormItem class="col-span-1 md:col-span-2 lg:col-span-3">
-                <FormLabel class="block">Observaciones</FormLabel>
-                <FormControl>
-                  <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
-                </FormControl>
-              </FormItem>
-            </FormField>
-
-            <!-- Botones -->
-            <div v-if="tipoDocumentoElegido === 'RUC' || tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'Carnet Extranjería'" class="col-span-1 md:col-span-2 lg:col-span-3 mt-3 text-center">
-              <!--- <Button type="reset" variant="destructive" class="bg" @click="resetForm">Eliminar</Button> -->
-              <Button type="submit" :disabled="guardando" class="bg-skyblue-fincore">
-                {{ guardando ? 'Guardando...' : 'Guardar' }}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+      </div>
     </div>
   </AppLayout>
 </template>
 
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3'
+import { Head, router, usePage } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { toast } from 'vue-sonner'
-import { useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
-import axios from 'axios'
 import { ref } from 'vue'
 
-import {
-  Card, CardHeader, CardTitle, CardDescription, CardContent,
-} from '@/components/ui/card'
-import {
-  FormField, FormItem, FormLabel, FormControl
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
-import type { ProspectoRequest, ProspectoCreateResponse } from '@/types/prospecto'
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { UploadCloud } from 'lucide-vue-next'
 
 const breadcrumbs = [
-  { title: 'Prospecto', href: '/prospecto' },
+  { title: 'Prospectos', href: '/prospectos' },
 ]
 
 // Estados de carga
 const consultandoRuc = ref(false)
 const guardando = ref(false)
 
-const tipoDocumentoElegido = ref('')
-const tipoDocumento = ref(
-  ['DNI', 'RUC', 'Carnet Extranjería']
-)
-const name = ref('')
+const page = usePage()
 
-const formSchema = toTypedSchema(z.object({
-  ruc: z.string().length(11, 'RUC debe tener 11 dígitos'),
-  business_name: z.string().min(1, 'Requerido'),
-  trade_name: z.string().optional(),
-  address: z.string().min(1, 'Requerido'),
-  economic_activity: z.string().optional(),
-  activity_start_date: z.string().optional(),
-  email: z.string().email('Correo inválido').optional().or(z.literal('')),
-  website: z.string().url('URL inválida').optional().or(z.literal('')),
-  sales_executive: z.string().min(1, 'Requerido'),
-  contact_person: z.string().optional(),
-  position: z.string().optional(),
-  expected_rate: z.coerce.number().optional(),
-  commission: z.coerce.number().optional(),
-  notes: z.string().optional(),
 
-  dni: z.string().length(8, 'RUC debe tener 8 dígitos').optional(), //tony
-}))
 
-const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useForm<ProspectoRequest>({
-  validationSchema: formSchema,
-  initialValues: {
-    ruc: '',
-    business_name: '',
-    trade_name: '',
-    address: '',
-    economic_activity: '',
-    activity_start_date: '',
-    email: '',
-    website: '',
-    sales_executive: '',
-    contact_person: '',
-    position: '',
-    expected_rate: 0,
-    commission: 0,
-    notes: '',
 
-    dni: '', //tony
-  }
-})
+/*
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { toast } from 'vue-sonner'
 
-const consultarRuc = async () => {
-  if (!values.ruc || values.ruc.length !== 11) {
-    toast.error('El RUC debe tener 11 dígitos')
-    return
-  }
+const page = usePage()
+const prospectos = ref(page.props.prospectos ?? [])
+const loading = ref(false)
 
-  if (!/^\d{11}$/.test(values.ruc)) {
-    toast.error('El RUC debe contener solo números')
-    return
-  }
-
-  consultandoRuc.value = true
-
-  try {
-    const { data } = await axios.get(`/api/consultas/ruc/${values.ruc}`)
-
-    if (!data || Object.keys(data).length === 0) {
-      toast.error('RUC no encontrado o no existe')
-      return
-    }
-
-    if (data.estado && data.estado.toLowerCase() === 'inactivo') {
-      toast.warning('El RUC está inactivo')
-    }
-
-    if (!data.razonSocial && !data.tipo && !data.direccion) {
-      toast.error('No se encontró información para este RUC')
-      return
-    }
-
-    if (data.razonSocial) {
-      setFieldValue('business_name', data.razonSocial)
-    }
-    if (data.tipo) {
-      setFieldValue('trade_name', data.tipo)
-    }
-    if (data.direccion) {
-      setFieldValue('address', data.direccion)
-    }
-    if (data.actividadEconomica) {
-      setFieldValue('economic_activity', data.actividadEconomica)
-    }
-    if (data.inicioActividades) {
-      setFieldValue('activity_start_date', data.inicioActividades)
-    }
-
-    toast.success('Datos del RUC cargados correctamente')
-  } catch (err: any) {
-    console.error('Error al consultar RUC:', err)
-
-    if (err?.response?.status === 404) {
-      toast.error('RUC no encontrado')
-    } else if (err?.response?.status === 429) {
-      toast.error('Demasiadas consultas. Intente más tarde')
-    } else if (err?.response?.status === 500) {
-      toast.error('Error del servidor. Intente más tarde')
-    } else if (err?.code === 'NETWORK_ERROR' || !navigator.onLine) {
-      toast.error('Error de conexión. Verifique su internet')
-    } else {
-      toast.error(err?.response?.data?.message || 'Error al consultar el RUC')
-    }
-  } finally {
-    consultandoRuc.value = false
-  }
+function verProveedor(supplier: any) {
+    router.visit(`/suppliers/${supplier.id}`)
 }
 
-const guardarProspecto = handleSubmit(async (formData) => {
-  guardando.value = true
+function editarProveedor(supplier: any) {
+    router.visit(`/suppliers/${supplier.id}/edit`)
+}
 
-  alert('adsfads');
+async function eliminarProveedor(id: number) {
+    if (confirm('¿Estás seguro de eliminar este proveedor?')) {
+        try {
+            await axios.delete(`/suppliers/${id}`)
+            suppliers.value = suppliers.value.filter(s => s.id !== id)
+            toast.success('Proveedor eliminado correctamente.')
+        } catch (error) {
+            toast.error('Error al eliminar proveedor.')
+        }
+    }
+}
+*/
 
-  try {
-    const res = await axios.post<ProspectoCreateResponse>('/Supplier', formData)
 
-    if (res.status === 200 || res.status === 201) {
-      toast.success(res.data.message || 'Prospecto guardado exitosamente')
-      //setTimeout(() => {
-        router.visit('/prospecto/reporte')
-      //}, 1500)
-    }
-  } catch (err: any) {
-    console.error('Error al guardar prospecto:', err)
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  ExpandedState,
+  SortingState,
+  VisibilityState,
+} from '@tanstack/vue-table'
+import {
+  FlexRender,
+  getCoreRowModel,
+  getExpandedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useVueTable,
+} from '@tanstack/vue-table'
+import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
+import { h } from 'vue'
+import { valueUpdater } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import DropdownAction from './components/DataTableDemoColumn.vue'
+import { Prospect } from './types/prospecto'
 
-    if (err?.response?.status === 422) {
-      if (err?.response?.data?.errors) {
-        const errors = err.response.data.errors
+const data = ref(page.props.prospectos ?? [])
 
-        Object.keys(errors).forEach(field => {
-          const errorMessage = Array.isArray(errors[field]) ? errors[field][0] : errors[field]
-          setFieldError(field, errorMessage)
-        })
+const columns: ColumnDef<Prospect>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => h(Checkbox, {
+      'modelValue': table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate'),
+      'onUpdate:modelValue': value => table.toggleAllPageRowsSelected(!!value),
+      'ariaLabel': 'Select all',
+    }),
+    cell: ({ row }) => h(Checkbox, {
+      'modelValue': row.getIsSelected(),
+      'onUpdate:modelValue': value => row.toggleSelected(!!value),
+      'ariaLabel': 'Select row',
+    }),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  /*{
+    accessorKey: 'ruc',
+    header: 'Ruc',
+    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('ruc')),
+  },*/
+  {
+    accessorKey: 'ruc',
+    header: ({ column }) => {
+      return h(Button, {
+        variant: 'ghost',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      }, () => ['RUC', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+    },
+    cell: ({ row }) => h('div', { class: '' }, row.getValue('ruc')),
+  },
+  {
+    accessorKey: 'business_name',
+    header: ({ column }) => {
+      return h(Button, {
+        variant: 'ghost',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      }, () => ['Razón Social', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+    },
+    cell: ({ row }) => h('div', { class: '' }, row.getValue('business_name')),
+  },
+  {
+    accessorKey: 'address',
+    header: ({ column }) => {
+      return h(Button, {
+        variant: 'ghost',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      }, () => ['Dirección', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+    },
+    cell: ({ row }) => h('div', { class: '' }, row.getValue('address')),
+  },
+  /* {
+    accessorKey: 'amount',
+    header: () => h('div', { class: 'text-right' }, 'Amount'),
+    cell: ({ row }) => {
+      const amount = Number.parseFloat(row.getValue('amount'))
 
-        toast.error('Por favor corrija los errores en el formulario')
-      } else {
-        toast.error('Datos inválidos. Verifique la información')
-      }
-    }
-    else if (err?.response?.status === 409) {
-      toast.error('El prospecto ya existe en el sistema')
-    }
-    else if (err?.response?.status === 500) {
-      toast.error('Error del servidor. Intente más tarde')
-    }
-    else if (err?.code === 'NETWORK_ERROR' || !navigator.onLine) {
-      toast.error('Error de conexión. Verifique su internet')
-    }
-    else if (err?.code === 'TIMEOUT') {
-      toast.error('La operación tomó demasiado tiempo. Intente de nuevo')
-    }
-    else {
-      toast.error(err?.response?.data?.message || 'Error al guardar el prospecto')
-    }
-  } finally {
-    guardando.value = false
-  }
+      // Format the amount as a dollar amount
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount)
+
+      return h('div', { class: 'text-right font-medium' }, formatted)
+    },
+  }, */
+  {
+    id: 'actions',
+    enableHiding: false,
+    cell: ({ row }) => {
+      const payment = row.original
+
+      return h(DropdownAction, {
+        payment,
+        onExpand: row.toggleExpanded,
+      })
+    },
+  },
+]
+
+const sorting = ref<SortingState>([])
+const columnFilters = ref<ColumnFiltersState>([])
+const columnVisibility = ref<VisibilityState>({})
+const rowSelection = ref({})
+const expanded = ref<ExpandedState>({})
+
+const table = useVueTable({
+  data,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  getSortedRowModel: getSortedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+  getExpandedRowModel: getExpandedRowModel(),
+  onSortingChange: updaterOrValue => valueUpdater(updaterOrValue, sorting),
+  onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
+  onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
+  onRowSelectionChange: updaterOrValue => valueUpdater(updaterOrValue, rowSelection),
+  onExpandedChange: updaterOrValue => valueUpdater(updaterOrValue, expanded),
+  state: {
+    get sorting() { return sorting.value },
+    get columnFilters() { return columnFilters.value },
+    get columnVisibility() { return columnVisibility.value },
+    get rowSelection() { return rowSelection.value },
+    get expanded() { return expanded.value },
+  },
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

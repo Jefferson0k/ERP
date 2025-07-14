@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Web\Ejemplo;
-use App\Http\Controllers\Web\Prospecto;
 use App\Http\Controllers\Panel\SupplierController;
+use App\Http\Controllers\Web\ComiteController;
+use App\Http\Controllers\Web\ProspectoController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,13 +23,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
 
-    Route::get('/prospecto', [Prospecto::class, 'index']);
-    Route::prefix('prospecto')->group(function () {
-        Route::get('/reporte', [Prospecto::class, 'reporte'])->name('prospecto.reporte');
+    Route::get('/prospectos', [ProspectoController::class, 'index'])->name('prospecto');
+    Route::prefix('prospectos')->group(function () {
+        Route::get('/prospecto', [ProspectoController::class, 'prospecto'])->name('prospecto.reporte');
+        Route::get('/prospecto/reporte', [ProspectoController::class, 'reporte'])->name('prospecto.reporte');
     });
-});
 
-Route::get('/prueba', [Ejemplo::class, 'vista']);
+    Route::get('/comite', [ComiteController::class, 'index'])->name('comite');
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
