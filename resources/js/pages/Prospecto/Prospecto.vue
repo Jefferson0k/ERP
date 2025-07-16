@@ -5,38 +5,46 @@
     <div class="flex h-full flex-1 flex-col rounded-xl p-10 mt-[67px]">
 
       <div class="bg-purple-fincore rounded-t-xl p-5">
-        <h1 class="m-0 text-white text-3xl font-bold">Nuevo prospecto</h1>
+        <h1 class="m-0 text-white text-3xl font-bold">Nuevo Prospecto</h1>
       </div>
 
-      
-
-
-
-      
       <Card class="flex flex-col gap-0 inset-ring inset-ring-gray-50 shadow-none rounded-t-none rounded-b-xl mb-10 py-5">
         <CardHeader>
           <CardDescription class="text-black-fincore font-medium">Selecciona el tipo de documento:</CardDescription>
         </CardHeader>
         <CardContent>
 
-    <Select v-model="tipoDocumentoElegido">
-      <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start py-2 px-3 active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3 mb-2">
-        <SelectValue placeholder="Tipo de documento"/>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Elige el tipo</SelectLabel>
-          <SelectItem v-for="item in tipoDocumento" :key="item" :value="item" class="">
-            {{ item }}
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+          <Select v-model="tipoDocumentoElegido">
+            <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start h-[36px] py-[4px] px-3 mb-[20px] active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3">
+              <SelectValue placeholder="Tipo de documento"/>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Elige el tipo</SelectLabel>
+                <SelectItem v-for="item in tipoDocumento" :key="item" :value="item" class="">
+                  {{ item }}
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
+          <Select v-model="tipoProductoElegido">
+            <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start h-[36px] py-[4px] px-3 mb-[20px] active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3">
+              <SelectValue placeholder="Tipo de producto"/>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Elige el tipo</SelectLabel>
+                <SelectItem v-for="item in tipoProducto" :key="item" :value="item" class="">
+                  {{ item }}
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-    <Ruc v-if="tipoDocumentoElegido === 'RUC'" class="col-span-1 md:col-span-2 lg:col-span-3" />
-    <Dni v-if="tipoDocumentoElegido === 'DNI'" class="col-span-1 md:col-span-2 lg:col-span-3" />
-    <Ce v-if="tipoDocumentoElegido === 'Carnet Extranjería'" class="col-span-1 md:col-span-2 lg:col-span-3" />
+          <Ruc v-if="tipoDocumentoElegido === 'RUC'" class="col-span-1 md:col-span-2 lg:col-span-3" />
+          <Dni v-if="tipoDocumentoElegido === 'DNI'" class="col-span-1 md:col-span-2 lg:col-span-3" />
+          <Ce v-if="tipoDocumentoElegido === 'Carnet Extranjería'" class="col-span-1 md:col-span-2 lg:col-span-3" />
 
         </CardContent>
       </Card>
@@ -88,10 +96,15 @@ const breadcrumbs = [
 const consultandoRuc = ref(false)
 const guardando = ref(false)
 
-const tipoDocumentoElegido = ref('')
+
 const tipoDocumento = ref(
   ['DNI', 'RUC', 'Carnet Extranjería']
 )
+const tipoDocumentoElegido = ref('')
+const tipoProducto = ref(
+  ['Factoring', 'Confirming']
+)
+const tipoProductoElegido = ref('')
 const name = ref('')
 
 const formSchema = toTypedSchema(z.object({
@@ -212,7 +225,7 @@ const guardarProspecto = handleSubmit(async (formData) => {
     if (res.status === 200 || res.status === 201) {
       toast.success(res.data.message || 'Prospecto guardado exitosamente')
       //setTimeout(() => {
-        router.visit('/prospecto/reporte')
+        router.visit('/prospectos/prospecto/reporte')
       //}, 1500)
     }
   } catch (err: any) {

@@ -180,7 +180,7 @@
       </div>
 
 
-            <FormField name="contact_person" v-slot="{ componentField }">
+            <FormField name="dni" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">DNI</FormLabel>
                 <FormControl>
@@ -190,7 +190,7 @@
             </FormField>
 
             
-            <FormField name="contact_person" v-slot="{ componentField }">
+            <FormField name="nombre" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Nombres y Apellidos</FormLabel>
                 <FormControl>
@@ -238,7 +238,7 @@
               </FormItem>
             </FormField>
 
-            <FormField name="website" v-slot="{ componentField }">
+            <FormField name="numero_movil" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">Número Móvil</FormLabel>
                 <FormControl>
@@ -300,7 +300,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { UploadCloud } from 'lucide-vue-next'
-import type { ProspectoRequest, ProspectoCreateResponse } from '../types/prospecto'
+import type { ProspectoRucRequest, ProspectoCreateResponse } from '../types/prospecto'
 
 const breadcrumbs = [
   { title: 'Prospecto', href: '/prospecto' },
@@ -333,10 +333,11 @@ const formSchema = toTypedSchema(z.object({
   notes: z.string().optional(),
 
   dni: z.string().optional(), //tony
-  ce: z.string().optional(), //tony
+  nombre: z.string().optional(), //tony
+  numero_movil: z.string().optional(), //tony
 }))
 
-const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useForm<ProspectoRequest>({
+const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useForm<ProspectoRucRequest>({
   validationSchema: formSchema,
   initialValues: {
     ruc: '',
@@ -355,7 +356,8 @@ const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useFor
     notes: '',
 
     dni: '', //tony
-    ce: '', //tony
+    nombre: '', //tony
+    numero_movil: '', //tony
   }
 })
 
@@ -429,13 +431,11 @@ const guardarProspecto = handleSubmit(async (formData) => {
   guardando.value = true
 
   try {
-    const res = await axios.post<ProspectoCreateResponse>('/Supplier', formData)
+    const res = await axios.post<ProspectoCreateResponse>('/api/prospecto/guardar_ruc', formData)
 
     if (res.status === 200 || res.status === 201) {
       toast.success(res.data.message || 'Prospecto guardado exitosamente')
-      //setTimeout(() => {
-        router.visit('/prospecto/reporte')
-      //}, 1500)
+      router.visit('/prospectos/prospecto/reporte')
     }
   } catch (err: any) {
     console.error('Error al guardar prospecto:', err)

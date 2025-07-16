@@ -337,7 +337,7 @@ const guardarProspecto = handleSubmit(async (formData) => {
     if (res.status === 200 || res.status === 201) {
       toast.success(res.data.message || 'Prospecto guardado exitosamente')
       //setTimeout(() => {
-        router.visit('/prospecto/reporte')
+        router.visit('/prospectos/prospecto/reporte')
       //}, 1500)
     }
   } catch (err: any) {

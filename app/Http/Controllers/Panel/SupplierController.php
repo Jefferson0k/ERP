@@ -8,6 +8,7 @@ use App\Http\Resources\Supplier\SupplierList;
 use App\Models\SunatFinancial;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class SupplierController extends Controller{

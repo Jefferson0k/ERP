@@ -30,6 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/comite', [ComiteController::class, 'index'])->name('comite');
+    Route::prefix('comite')->group(function () {
+        Route::get('/factoring-a/{id}', [ComiteController::class, 'factoringA'])->name('comite.factoring.a');
+        Route::get('/factoring-b', [ComiteController::class, 'factoringB'])->name('comite.factoring.b');
+        Route::get('/confirming', [ComiteController::class, 'confirming'])->name('comite.confirming');
+    });
 });
 
 require __DIR__ . '/settings.php';

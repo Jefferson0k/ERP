@@ -10,6 +10,12 @@
       
       <div class="inset-ring inset-ring-gray-100 rounded-t-none rounded-b-xl p-5">
 
+            <div class="text-center">
+              <Button type="button" :disabled="guardando" class="bg-skyblue-fincore" @click="router.visit('/prospectos/prospecto')">
+                {{ guardando ? 'Navegando...' : 'Nuevo prospecto' }}
+              </Button>
+            </div>
+
                       <!-- <Table>
                         <TableHeader class="table-header-row">
                             <TableRow>
@@ -134,7 +140,7 @@
           :disabled="!table.getCanPreviousPage()"
           @click="table.previousPage()"
         >
-          Previous
+          Anterior
         </Button>
         <Button
           variant="outline"
@@ -142,7 +148,7 @@
           :disabled="!table.getCanNextPage()"
           @click="table.nextPage()"
         >
-          Next
+          Siguiente
         </Button>
       </div>
     </div>
@@ -239,11 +245,11 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import DropdownAction from './components/DataTableDemoColumn.vue'
-import { Prospect } from './types/prospecto'
+import { Prospecto } from './types/prospecto'
 
 const data = ref(page.props.prospectos ?? [])
 
-const columns: ColumnDef<Prospect>[] = [
+const columns: ColumnDef<Prospecto>[] = [
   {
     id: 'select',
     header: ({ table }) => h(Checkbox, {

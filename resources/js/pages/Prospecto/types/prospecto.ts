@@ -1,4 +1,4 @@
-export type ProspectoRequest = {
+export type ProspectoRucRequest = {
   ruc: string;
   business_name: string;
   trade_name?: string;
@@ -15,7 +15,8 @@ export type ProspectoRequest = {
   notes?: string;
 
   dni: string; //tony
-  ce: string; //tony
+  nombre: string; //tony
+  numero_movil: string; //tony
 };
 
 export type ProspectoResource = {
@@ -38,7 +39,8 @@ export type ProspectoResource = {
   updated_at: string;
 
   dni: string; //tony
-  ce: string; //tony
+  nombre: string; //tony
+  numero_movil: string; //tony
 };
 
 export type ProspectoDniRequest = {
@@ -101,7 +103,7 @@ export type ProspectoListResponse = {
   };
 };
 
-export interface Prospect {
+export interface Prospecto {
   registration_date: string | null
   sales_executive: string | null
   ruc: string | null

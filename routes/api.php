@@ -21,5 +21,7 @@ Route::prefix('consultas')->group(function () {
 
 Route::post('/procesar-pdf-sunat', [SunatReportController::class, 'procesar']);
 
+Route::post('/prospecto/guardar_ruc', [ProspectoController::class, 'guardarRuc']);
 Route::post('/prospecto/guardar_dni', [ProspectoController::class, 'guardarDni']);
 Route::post('/prospecto/guardar_ce', [ProspectoController::class, 'guardarCe']);
+Route::post('/prospecto/guardar_sunat_reporte', [ProspectoController::class, 'guardarSunatReporte']);
