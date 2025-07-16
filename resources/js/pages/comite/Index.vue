@@ -5,62 +5,10 @@
     <div class="p-10 mt-[67px]">
 
       <div class="bg-purple-fincore rounded-t-xl p-5">
-        <h1 class="m-0 text-white text-3xl font-bold">Prospectos</h1>
+        <h1 class="m-0 text-white text-3xl font-bold">Prospectos Por Revisar</h1>
       </div>
       
       <div class="inset-ring inset-ring-gray-100 rounded-t-none rounded-b-xl p-5">
-
-            <div class="text-center">
-              <Button type="button" :disabled="guardando" class="bg-skyblue-fincore" @click="router.visit('/prospectos/prospecto')">
-                {{ guardando ? 'Navegando...' : 'Nuevo prospecto' }}
-              </Button>
-            </div>
-
-                      <!-- <Table>
-                        <TableHeader class="table-header-row">
-                            <TableRow>
-                                <TableHead class="table-head">RUC</TableHead>
-                                <TableHead class="table-head">Razón Social</TableHead>
-                                <TableHead class="table-head">Nombre Comercial</TableHead>
-                                <TableHead class="table-head-status">Dirección</TableHead>
-                                <TableHead class="table-head-actions">Actividad Económica</TableHead>
-                                <TableHead class="table-head-actions">F. Actividades</TableHead>
-                                <TableHead class="table-head-actions">Email</TableHead>
-                                <TableHead class="table-head-actions">Persona Contacto</TableHead>
-                                <TableHead class="table-head-actions">Cargo</TableHead>
-                                <TableHead class="table-head-actions">Tasa Esperada</TableHead>
-                                <TableHead class="table-head-actions">Comisión</TableHead>
-                                <TableHead class="table-head-actions">Estado</TableHead>
-                                <TableHead class="table-head-actions">Acciones</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody class="table-body">
-                            <TableRow v-for="supplier in suppliers" :key="supplier.id">
-                                <TableHead>{{ supplier.ruc }}</TableHead>
-                                <TableHead>{{ supplier.razon_social }}</TableHead>
-                                <TableHead>{{ supplier.business_name }}</TableHead>
-                                <TableHead>{{ supplier.address }}</TableHead>
-                                <TableHead>{{ supplier.economic_activity }}</TableHead>
-                                <TableHead>{{ supplier.fecha_inicio_actividades }}</TableHead>
-                                <TableHead>{{ supplier.email }}</TableHead>
-                                <TableHead>{{ supplier.persona_contacto }}</TableHead>
-                                <TableHead>{{ supplier.position }}</TableHead>
-                                <TableHead>{{ supplier.expected_rate }}%</TableHead>
-                                <TableHead>{{ supplier.commission }}%</TableHead>
-                                <TableHead>
-                                    <span :class="supplier.estado === 'activo' ? 'text-green-600' : 'text-red-600'">
-                                        {{ supplier.estado }}
-                                    </span>
-                                </TableHead>
-                                <TableHead class="flex gap-1">
-                                    <button class="bg-blue-500 text-white px-2 py-1 rounded" @click="verProveedor(supplier)">Ver</button>
-                                    <button class="bg-yellow-500 text-white px-2 py-1 rounded" @click="editarProveedor(supplier)">Editar</button>
-                                    <button class="bg-red-500 text-white px-2 py-1 rounded" @click="eliminarProveedor(supplier.id)">Eliminar</button>
-                                </TableHead>
-                            </TableRow>
-                        </TableBody>
-                    </Table> -->
-
 
                     <div class="w-full">
     <div class="flex items-center py-4">
@@ -176,38 +124,6 @@ const guardando = ref(false)
 const page = usePage()
 
 
-
-
-/*
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { toast } from 'vue-sonner'
-
-const page = usePage()
-const prospectos = ref(page.props.prospectos ?? [])
-const loading = ref(false)
-
-function verProveedor(supplier: any) {
-    router.visit(`/suppliers/${supplier.id}`)
-}
-
-function editarProveedor(supplier: any) {
-    router.visit(`/suppliers/${supplier.id}/edit`)
-}
-
-async function eliminarProveedor(id: number) {
-    if (confirm('¿Estás seguro de eliminar este proveedor?')) {
-        try {
-            await axios.delete(`/suppliers/${id}`)
-            suppliers.value = suppliers.value.filter(s => s.id !== id)
-            toast.success('Proveedor eliminado correctamente.')
-        } catch (error) {
-            toast.error('Error al eliminar proveedor.')
-        }
-    }
-}
-*/
-
-
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -244,10 +160,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import DropdownAction from './components/DataTableDemoColumn.vue'
-import { Prospecto } from './types/prospecto'
+import DropdownAction from './components/DataTableColumn.vue'
+import { Prospecto } from './types/comite'
 
 const data = ref(page.props.prospectos ?? [])
+console.log(data.value);
 
 const columns: ColumnDef<Prospecto>[] = [
   {
@@ -316,6 +233,21 @@ const columns: ColumnDef<Prospecto>[] = [
     },
   }, */
   {
+    id: 'acciones',
+    header: 'Acciones',
+    enableHiding: false,
+    cell: ({ row }) => {
+      const prospecto = row.original
+      return h('button', {
+        class: 'bg-skyblue-fincore hover:bg-purpple-fincore text-white font-bold py-1 px-3 rounded',
+        onClick: () => {
+          router.visit(`/comite/factoring-a/${prospecto.id}`)
+        }
+      }, 'Revisar')
+    }
+  }
+
+  /*{
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
@@ -326,7 +258,7 @@ const columns: ColumnDef<Prospecto>[] = [
         onExpand: row.toggleExpanded,
       })
     },
-  },
+  },*/
 ]
 
 const sorting = ref<SortingState>([])

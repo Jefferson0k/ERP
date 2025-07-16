@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Smalot\PdfParser\Parser;
 
 class SunatReportController extends Controller{
     public function procesar(Request $request){
+        //Log::debug('SunatReportController Debug info::::::::::::::::::::::::: ', $request->all());
+        
         $request->validate([
             'archivo' => 'required|file|mimes:pdf|max:10240',
         ]);

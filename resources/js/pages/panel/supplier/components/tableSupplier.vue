@@ -61,7 +61,7 @@ import { usePage, router } from '@inertiajs/vue3'
 import { toast } from 'vue-sonner'
 
 const page = usePage()
-const suppliers = ref(page.props.suppliers ?? [])
+const suppliers = ref(page.props.prospects ?? [])
 const loading = ref(false)
 
 function verProveedor(supplier: any) {

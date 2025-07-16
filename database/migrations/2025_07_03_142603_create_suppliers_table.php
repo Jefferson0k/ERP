@@ -27,8 +27,27 @@ return new class extends Migration{
 
             $table->string('dni', 20)->unique()->nullable(); //tony
             $table->string('ce', 20)->unique()->nullable(); //tony
+            $table->string('nombre')->nullable(); //tony
+            $table->date('fecha_nacimiento')->nullable(); //tony
+            $table->string('sexo')->nullable(); //tony
+            $table->string('estado_civil')->nullable(); //tony
+            $table->string('numero_movil')->nullable(); //tony
+
+            $table->string('entidad_apefac')->nullable(); //tony
+            $table->decimal('endeudamiento_apefac', 15, 2)->nullable(); //tony
+            $table->decimal('endeudamiento_pomedio_6_apefac', 15, 2)->nullable(); //tony
+            $table->string('entidadcliente_situacion_sf_apefac')->nullable(); //tony
+            $table->decimal('endeudamiento_bancario', 15, 2)->nullable(); //tony
+            $table->boolean('cuenta_con_protestos')->default(false); //tony
+            $table->decimal('protestos', 15, 2)->nullable(); //tony
+            $table->string('rl_nombre')->nullable(); //tony
+            $table->string('situacion_sf')->nullable(); //tony
+            $table->integer('edad')->nullable(); //tony
+            $table->text('comentarios_area_riesgos')->nullable(); //tony
+            $table->text('comentarios_area_comercial')->nullable(); //tony
         });
     }
+
     public function down(): void{
         Schema::dropIfExists('suppliers');
     }

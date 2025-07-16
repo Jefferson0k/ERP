@@ -8,12 +8,9 @@
         <h1 class="m-0 text-white text-3xl font-bold">Registro de Reporte Tributario</h1>
       </div>
 
-
-        <!-- <div class="container-table overflow-x-hidden mt-[84px]"> -->
-
         <div class="flex">
             <div
-                class="relative min-h-[100vh] flex-1 rounded-b-xl border border-sidebar-border/70 dark:border-sidebar-border p-6 space-y-6">
+                class="relative flex-1 rounded-b-xl border border-sidebar-border/70 dark:border-sidebar-border p-6 space-y-6">
 
                 <!-- Fila de carga archivo, clasificación y empresa -->
                 <div class="flex flex-col gap-4 md:flex-row md:items-end">
@@ -30,38 +27,6 @@
                             Archivo cargado: {{ uploadedFileName }}
                         </p>
                     </div>
-
-                    <!-- Clasificación -->
-                    <!--<div class="flex-1 space-y-1.5">
-                        <Label for="clasificacion">Clasificación</Label>
-                        <Select v-model="selectedClassification">
-                            <SelectTrigger id="clasificacion" class="w-full">
-                                <SelectValue placeholder="Selecciona una clasificación" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="normal">Normal</SelectItem>
-                                <SelectItem value="cpp">CPP</SelectItem>
-                                <SelectItem value="deficiente">Deficiente</SelectItem>
-                                <SelectItem value="dudoso">Dudoso</SelectItem>
-                                <SelectItem value="perdida">Perdida</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>-->
-
-                    <!-- Empresa -->
-                    <!-- <div class="flex-1 space-y-1.5">
-                        <Label for="empresa">Empresa</Label>
-                        <Select v-model="selectedCompany">
-                            <SelectTrigger id="empresa" class="w-full">
-                                <SelectValue placeholder="Selecciona una empresa" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="pequenas">Pequeñas</SelectItem>
-                                <SelectItem value="media">Media</SelectItem>
-                                <SelectItem value="grande">Grande</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div> -->
                 </div>
 
                 <!-- Mensaje de error -->
@@ -76,13 +41,6 @@
                     <Label class="font-bold text-purple-fincore text-lg">Datos generales</Label>
                     <div class="border rounded-lg p-4 text-black-fincore text-sm">
                         <Table class="w-full">
-                            <!-- <TableHeader>
-                                <TableRow>
-                                    <TableHead>Año</TableHead>
-                                    <TableHead>Ingresos</TableHead>
-                                    <TableHead>Utilidad</TableHead>
-                                </TableRow>
-                            </TableHeader> -->
                             <TableBody v-if="pdfData?.datos_generales">
                                 <TableRow class="odd:bg-gray-100 even:bg-white border-none">
                                     <TableCell class="text-gray-600 pe-10">
@@ -359,91 +317,32 @@
                 </div>
 
                 <!-- Información de declaraciones mensuales -->
-                <!-- <div class="space-y-2 mt-8">
-                    <Label class="font-bold text-purple-fincore text-lg">Información de las declaraciones mensuales</Label>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div v-for="(declaracionData, declaracionKey) in pdfData?.declaraciones_mensuales || {}" :key="declaracionKey" class="mb-6">
-                            <div class="border rounded-lg p-4 text-black-fincore text-sm col-span-2">
-                                <h4 class="text-gray-600 mb-2">{{ declaracionKey }}</h4>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead class="text-gray-600">Mes</TableHead>
-                                            <TableHead class="text-gray-600">Monto</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        <TableRow v-for="(item, index) in declaracionData" :key="index" class="odd:bg-gray-100 even:bg-white border-none">
-                                            <TableCell>{{ item[0] }}</TableCell>
-                                            <TableCell>{{ item[1] || '-' }}</TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </div>
-                        <div v-if="!pdfData?.ventas || Object.keys(pdfData.ventas).length === 0">
-                            <p class="text-center text-black-fincore">No hay datos de ventas disponibles</p>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Información de declaraciones mensuales -->
                 <div class="space-y-2 mt-8">
                     <Label class="font-bold text-purple-fincore text-lg">Información de las declaraciones mensuales</Label>
 
-                        <div v-for="(declaracionData, declaracionKey) in pdfData?.declaraciones_mensuales || {}" :key="declaracionKey" class="mb-6">
-                            <div class="border rounded-lg p-4 text-black-fincore text-sm">
-                                <h4 class="text-gray-600 mb-2">{{ declaracionKey }}</h4>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead v-for="(item, index) in declaracionData" :key="index" class="text-gray-600">{{ item[0] }}</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        <TableRow class="odd:bg-gray-100 even:bg-white border-none">
-                                            <TableCell v-for="(item, index) in declaracionData" :key="index">
-                                                {{ item[1] || '-' }}
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </div>
-                        <div v-if="!pdfData?.ventas || Object.keys(pdfData.ventas).length === 0">
-                            <p class="text-center text-black-fincore">No hay datos de ventas disponibles</p>
-                        </div>
-
-                </div>
-
-                <!-- Información de Ventas -->
-                <!-- <div class="space-y-2 mt-8">
-                    <Label class="font-bold text-purple-fincore text-lg">Información de Ventas</Label>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div v-for="(ventaData, ventaKey) in pdfData?.ventas || {}" :key="ventaKey" class="mb-6">
-                            <div class="border rounded-lg p-4 text-black-fincore text-sm col-span-3">
-                                <h4 class="text-gray-600 mb-2">{{ ventaKey }}</h4>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead class="text-gray-600">Mes</TableHead>
-                                            <TableHead class="text-gray-600">Monto</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        <TableRow v-for="(item, index) in ventaData" :key="index" class="odd:bg-gray-100 even:bg-white border-none">
-                                            <TableCell>{{ item[0] }}</TableCell>
-                                            <TableCell>{{ item[1] || '-' }}</TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </div>
-                        <div v-if="!pdfData?.ventas || Object.keys(pdfData.ventas).length === 0">
-                            <p class="text-center text-black-fincore">No hay datos de ventas disponibles</p>
+                    <div v-for="(declaracionData, declaracionKey) in pdfData?.declaraciones_mensuales || {}" :key="declaracionKey" class="mb-6">
+                        <div class="border rounded-lg p-4 text-black-fincore text-sm">
+                            <h4 class="text-gray-600 mb-2">{{ declaracionKey }}</h4>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead v-for="(item, index) in declaracionData" :key="index" class="text-gray-600">{{ item[0] }}</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    <TableRow class="odd:bg-gray-100 even:bg-white border-none">
+                                        <TableCell v-for="(item, index) in declaracionData" :key="index">
+                                            {{ item[1] || '-' }}
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
                         </div>
                     </div>
-                </div> -->
+                    <div v-if="!pdfData?.ventas || Object.keys(pdfData.ventas).length === 0">
+                        <p class="text-center text-black-fincore">No hay datos de ventas disponibles</p>
+                    </div>
+                </div>
 
                 <div class="space-y-2 mt-8">
                     <Label class="font-bold text-purple-fincore text-lg">Información de Ventas</Label>
@@ -532,43 +431,11 @@
                     </div>
                 </div>
 
-                <!-- Línea / Operación Propuesta -->
-                <!-- <div class="space-y-2 mt-8">
-                    <Label class="font-bold text-purple-fincore text-lg">Línea / Operación Propuesta</Label>
-                    <div class="border rounded-lg p-4 text-black-fincore text-sm">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Tipo</TableHead>
-                                    <TableHead>Monto</TableHead>
-                                    <TableHead>Plazo</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell colspan="3" class="text-center text-black-fincore">
-                                        No hay datos disponibles
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                <div class="pt-5 text-center">
+                    <Button type="button" :disabled="guardando" class="bg-skyblue-fincore" @click="guardarReporte">
+                        {{ guardando ? 'Navegando...' : 'Guardar Reporte Tributario' }}
+                    </Button>
                     </div>
-                </div> -->
-
-                <!-- Observación y botón siguiente -->
-                <!-- <div class="space-y-2 mt-8">
-                    <Label for="observacion" class="font-semibold">Observación</Label>
-                    <textarea id="observacion" v-model="observacion" rows="4"
-                        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm placeholder:text-black-fincore focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                        placeholder="Escribe alguna observación adicional..."></textarea>
-
-                    <div class="flex justify-end mt-2">
-                        <Button @click="handleSiguiente">
-                            Siguiente
-                        </Button>
-                    </div>
-                </div> -->
-
                 </div>
 
             </div>
@@ -581,7 +448,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, router } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import axios from 'axios'
 
@@ -607,9 +474,11 @@ import { Pagination } from '@/components/ui/pagination'
 
 // Breadcrumbs
 const breadcrumbs = [
-  { title: 'Prospecto', href: '/prospecto' },
-  { title: 'Registro de Reporte Tributario', href: '/prospecto/reporte' },
+  { title: 'Prospectos', href: '/prospectos' },
+  { title: 'Prospecto', href: '/prospectos/prospecto' },
+  { title: 'Reporte Tributario', href: '/prospectos/prospecto/reporte' },
 ]
+const guardando = ref(false)
 
 // Estados
 const isUploading = ref(false)
@@ -634,6 +503,106 @@ const totalPages = computed(() => {
     const totalItems = pdfData.value?.informacion_economico?.Anos?.length || 0
     return Math.ceil(totalItems / itemsPerPage)
 })
+
+const convertirFecha = (fecha: string): string | null => {
+  const partes = fecha.split('/')
+  if (partes.length !== 3) return null
+  const [dia, mes, anio] = partes
+  if (
+    isNaN(Number(dia)) ||
+    isNaN(Number(mes)) ||
+    isNaN(Number(anio))
+  ) return null
+  return `${anio.padStart(4, '0')}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`
+}
+
+const convertirNumero = (value: string): number => {
+  if (!value) return 0
+  const cleanValue = value.replace(/,/g, '')
+  return Number(cleanValue)
+}
+
+const obtenerSuma12 = (value: string | string[]): number => {
+  if (!value) return 0
+  let suma = 0
+  for (let i = 0; i < value.length; i++) {
+    const cleanValue = Number(value[i][1].replace(/,/g, ''))
+    suma += cleanValue
+  }
+  return suma
+}
+
+const obtenerPromedio12 = (value: string | string[]): number => {
+  if (!value) return 0
+  let promedio = 0
+  for (let i = 0; i < value.length; i++) {
+    const cleanValue = Number(value[i][1].replace(/,/g, ''))
+    promedio += cleanValue
+  }
+  return promedio / value.length
+}
+
+const obtenerSuma6 = (value: string | string[]): number => {
+  if (!value) return 0
+  const lastSix = value.slice(value.length - 6)
+  let suma = 0
+  for (let i = 0; i < lastSix.length; i++) {
+    const cleanValue = Number(lastSix[i][1].replace(/,/g, ''))
+    suma += cleanValue
+  }
+  return suma
+}
+
+const obtenerPromedio6 = (value: string | string[]): number => {
+  if (!value) return 0
+  const lastSix = value.slice(value.length - 6)
+  let promedio = 0
+  for (let i = 0; i < lastSix.length; i++) {
+    const cleanValue = Number(lastSix[i][1].replace(/,/g, ''))
+    promedio += cleanValue
+  }
+  return promedio / lastSix.length
+}
+
+const guardarReporte = async () =>  {
+    if (!pdfData.value?.datos_generales) return;
+
+    try {
+        const res = await axios.post('/api/prospecto/guardar_sunat_reporte', {
+            supplier_id: 1,
+            ano: '2025',
+            nombre_comercial:  pdfData.value?.datos_generales.NombreComercial,
+            fecha_inscripcion:  convertirFecha(pdfData.value?.datos_generales.FechaInscripcion),
+            fecha_inicio_actividades:  convertirFecha(pdfData.value?.datos_generales.FechaInicioActividades),
+            estado_contribuyente:  pdfData.value?.datos_generales.EstadoContribuyente,
+            condicion_contribuyente:  pdfData.value?.datos_generales.CondicionContribuyente,
+            domicilio_fiscal:  pdfData.value?.datos_generales.DomicilioFiscal,
+            actividad_comercio_exterior:  pdfData.value?.datos_generales.ActividadComercioExterior,
+            actividad_economica:  pdfData.value?.datos_generales.ActividadEconomica,
+            ingresos_netos: convertirNumero(pdfData.value?.informacion_economico.IngresosNetosPeriodo[0]),
+            otros_ingresos: convertirNumero(pdfData.value?.informacion_economico.OtrosIngresosDeclarados[0]),
+            total_activos: convertirNumero(pdfData.value?.informacion_economico.TotalActivosNetos[0]),
+            total_cuentas_por_pagar: convertirNumero(pdfData.value?.informacion_economico.TotalCuentasPorPagar[0]),
+            total_pasivo: convertirNumero(pdfData.value?.informacion_economico.TotalPasivo[0]),
+            total_patrimonio: convertirNumero(pdfData.value?.informacion_economico.TotalPatrimonio[0]),
+            capital_social: convertirNumero(pdfData.value?.informacion_economico.CapitalSocial[0]),
+            resultado_bruto: convertirNumero(pdfData.value?.informacion_economico.ResultadoBruto[0]),
+            resultado_antes_imp: convertirNumero(pdfData.value?.informacion_economico.ResultadoAntesParticipacionesImpuestos[0]),
+            importe_pagado: convertirNumero(pdfData.value?.informacion_economico.ImportePagado[0]),
+            ingreso_12_meses: obtenerSuma12(pdfData.value?.declaraciones_mensuales.EjercicioAnterior),
+            ingreso_6_meses: obtenerSuma6(pdfData.value?.declaraciones_mensuales.EjercicioAnterior),
+            promedio_ingreso_12_meses: obtenerPromedio12(pdfData.value?.declaraciones_mensuales.EjercicioAnterior),
+            promedio_ingreso_6_meses: obtenerPromedio6(pdfData.value?.declaraciones_mensuales.EjercicioAnterior),
+        })
+
+        if (res.status === 200 || res.status === 201) {
+            //toast.success(res.data.message || 'Prospecto guardado exitosamente')
+            router.visit('/prospectos')
+        }
+    } catch (err: any) {
+        console.error('Error al guardar reporte:', err)
+    }
+}
 
 // Subida de archivo
 const handleFileUpload = async (event: Event) => {
@@ -679,19 +648,4 @@ const handleFileUpload = async (event: Event) => {
     }
 }
 
-// Formato número
-const formatNumber = (value: number | null | undefined): string => {
-    if (value === null || value === undefined || isNaN(value)) return '-'
-    return new Intl.NumberFormat('es-PE', {
-        style: 'currency',
-        currency: 'PEN',
-        minimumFractionDigits: 0
-    }).format(value)
-}
-
-// Acción del botón siguiente
-const handleSiguiente = () => {
-    console.log('Observación:', observacion.value)
-    // Aquí puedes redirigir, enviar un formulario o pasar al siguiente paso
-}
 </script>

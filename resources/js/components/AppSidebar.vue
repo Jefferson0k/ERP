@@ -11,8 +11,13 @@ import AppLogo from './AppLogo.vue';
 const mainNavItems: NavItem[] = [
     {
         title: 'Prospecto',
-        href: '/prospecto',
+        href: '/prospectos',
         icon: Folder,
+    },
+    {
+        title: 'Comité',
+        href: '/comite',
+        icon: BookOpen,
     },
     {
         title: 'Proveedor',

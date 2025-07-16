@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Supplier;
+namespace App\Http\Requests\Prospecto;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SupplierStoreRequests extends FormRequest{
+class ProspectoRucStoreRequest extends FormRequest
+{
     public function authorize(): bool{
         return true;
     }
+
     public function rules(): array{
         return [
             'sales_executive'                      => ['required', 'string', 'max:255'],

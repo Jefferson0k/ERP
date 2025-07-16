@@ -8,11 +8,15 @@ use App\Http\Resources\Supplier\SupplierList;
 use App\Models\SunatFinancial;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class SupplierController extends Controller{
+
     public function index(){
-        return Inertia::render('panel/supplier/indexSupplier');
+        return Inertia::render('panel/supplier/indexSupplier', [
+            'prospects' => Supplier::all()
+        ]);
     }
     public function create(){
         return Inertia::render('panel/supplier/components/formSupplier');
