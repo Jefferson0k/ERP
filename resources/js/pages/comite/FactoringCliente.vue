@@ -36,6 +36,28 @@
                 </p>
               </FormItem>
             </FormField>
+            <FormField name="fecha_reporte_tributario" v-slot="{ componentField }">
+              <FormItem class="col-span-2">
+                <FormLabel class="block">Fecha Reporte Tributario</FormLabel>
+                <FormControl>
+                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].fecha_reporte_tributario" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
+            <FormField name="fecha_sentinel" v-slot="{ componentField }">
+              <FormItem class="col-span-2">
+                <FormLabel class="block">Fecha Sentinel</FormLabel>
+                <FormControl>
+                  <Input type="date" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].fecha_sentinel" />
+                </FormControl>
+                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                  {{ componentField.errorMessage }}
+                </p>
+              </FormItem>
+            </FormField>
             <FormField name="total_activos" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Activos</FormLabel>
@@ -44,7 +66,6 @@
                 </FormControl>
               </FormItem>
             </FormField>
-
             <FormField name="total_pasivo" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Pasivos</FormLabel>
@@ -53,7 +74,6 @@
                 </FormControl>
               </FormItem>
             </FormField>
-
             <FormField name="capital_social" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Capital Social</FormLabel>
@@ -70,8 +90,6 @@
                 </FormControl>
               </FormItem>
             </FormField>
-
-            
             <FormField name="ingresos_netos" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Ingr. Últi. Año</FormLabel>
@@ -123,83 +141,82 @@
 
 
             
-            <FormField name="nombre" v-slot="{ componentField }">
+            <!-- <FormField name="entidad_apefac" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Entidad Apefac</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].entidad_apefac"/>
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="endeudamiento_apefac" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Endeud. Apefac</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].endeudamiento_apefac"/>
                 </FormControl>
               </FormItem>
-            </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            </FormField><FormField name="endeudamiento_pomedio_6_apefac" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Endeud. Prom. 6 M. Apefac</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].endeudamiento_pomedio_6_apefac"/>
                 </FormControl>
               </FormItem>
-            </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            </FormField>-->
+            <FormField name="cliente_situacion_sf" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Cliente Situación SF</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].cliente_situacion_sf" />
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="endeudamiento_bancario" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Endeud. Bancario</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].endeudamiento_bancario" />
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="cuenta_con_protestos" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Cuenta con Protestos</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].cuenta_con_protestos" />
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="protestos" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Protestos</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].protestos" />
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="rl_nombre" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">RL Nombre</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].rl_nombre" />
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="situacion_sf" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Situación SF</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].situacion_sf" />
                 </FormControl>
               </FormItem>
             </FormField>
-            <FormField name="nombre" v-slot="{ componentField }">
+            <FormField name="edad" v-slot="{ componentField }">
               <FormItem class="col-span-2">
                 <FormLabel class="block">Edad</FormLabel>
                 <FormControl>
-                  <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                  <Input type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].edad" />
                 </FormControl>
               </FormItem>
             </FormField>
@@ -213,27 +230,27 @@
                 <h3 class="m-0 text-purple-fincore text-xl font-bold">Comentarios</h3>
               </div>
 
-              <FormField  name="notes" v-slot="{ componentField }">
+              <FormField  name="comentarios_area_riesgos" v-slot="{ componentField }">
                 <FormItem class="col-span-2 md:col-span-4 lg:col-span-6 mb-4">
                   <FormLabel class="block">Comentarios Área de Riesgos</FormLabel>
                   <FormControl>
-                    <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].comentarios_area_riesgos" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField  name="notes" v-slot="{ componentField }">
+              <FormField  name="comentarios_area_comercial" v-slot="{ componentField }">
                 <FormItem class="col-span-2 md:col-span-4 lg:col-span-6 mb-4">
                   <FormLabel class="block">Comentarios Área de Comercial</FormLabel>
                   <FormControl>
-                    <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].comentarios_area_comercial" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField  name="faltabd" v-slot="{ componentField }">
+              <FormField  name="comentarios_area_operaciones" v-slot="{ componentField }">
                 <FormItem class="col-span-2 md:col-span-4 lg:col-span-6 mb-4">
                   <FormLabel class="block">Comentarios Área de Operaciones</FormLabel>
                   <FormControl>
-                    <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Textarea rows="4" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField"  v-model="prospecto[0].comentarios_area_operaciones" />
                   </FormControl>
                 </FormItem>
               </FormField>
@@ -245,51 +262,51 @@
               <div class="border-b border-gray-100 py-3 col-span-2 md:col-span-4 lg:col-span-6 mb-4">
                 <h3 class="m-0 text-purple-fincore text-xl font-bold">Parametros Sugeridos</h3>
               </div>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="linea_cliente_sugerido" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Línea Cliente</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].linea_cliente_sugerido" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="anticipo_sugerido" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">% Anticipo</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].anticipo_sugerido" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="monto_comision_sugerido" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Monto Comisión</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].monto_comision_sugerido" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="tasa_tem_sugerido" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Tasa (TEM)</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].tasa_tem_sugerido" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="adelanto_sugerido" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Adelanto</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].adelanto_sugerido" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="linea_adelanto_sugerido" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Línea Adelanto</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].linea_adelanto_sugerido" />
                   </FormControl>
                 </FormItem>
               </FormField>
@@ -300,51 +317,51 @@
               <div class="border-b border-gray-100 py-3 col-span-2 md:col-span-4 lg:col-span-6 mb-4">
                 <h3 class="m-0 text-purple-fincore text-xl font-bold">Parametros Definitivos</h3>
               </div>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="linea_cliente_definitivo" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Línea Cliente</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].linea_cliente_definitivo" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="anticipo_definitivo" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">% Anticipo</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].anticipo_definitivo" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="monto_comision_definitivo" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Monto Comisión</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].monto_comision_definitivo" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="tasa_tem_definitivo" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Tasa (TEM)</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].tasa_tem_definitivo" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="adelanto_definitivo" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Adelanto</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].adelanto_definitivo" />
                   </FormControl>
                 </FormItem>
               </FormField>
-              <FormField name="faltabd" v-slot="{ componentField }">
+              <FormField name="linea_adelanto_definitivo" v-slot="{ componentField }">
                 <FormItem class="col-span-2 mb-4">
                   <FormLabel class="block">Línea Adelanto</FormLabel>
                   <FormControl>
-                    <Input class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" />
+                    <Input  type="number" class="w-full shadow-none rounded-lg border-gray-200" v-bind="componentField" v-model="prospecto[0].linea_adelanto_definitivo" />
                   </FormControl>
                 </FormItem>
               </FormField>
@@ -355,8 +372,12 @@
 
 
             <div class="col-span-2 md:col-span-4 lg:col-span-6 mt-3 text-center">
-              <Button type="submit" :disabled="guardando" class="bg-skyblue-fincore" @click="router.visit('/comite/factoring-b')">
+              <Button type="button" :disabled="guardando" class="bg-skyblue-fincore me-5" @click="actualizarProspecto">
                 {{ guardando ? 'Guardando...' : 'Guardar' }}
+              </Button>
+              <!-- <Button type="button" :disabled="guardando" class="bg-purple-fincore" @click="router.visit(`/comite/factoring/aceptante/${prospecto[0].id_factoring}`)"> -->
+              <Button type="button" :disabled="guardando" class="bg-purple-fincore" @click="router.visit(`/comite/factoring/aceptante/${id}`)">
+                {{ guardando ? 'Guardando...' : 'Aceptante(s)' }}
               </Button>
             </div>
           </form>
@@ -383,55 +404,62 @@ import Button from '@/components/ui/button/Button.vue'
 import Input from '@/components/ui/input/Input.vue'
 import { Textarea } from '@/components/ui/textarea'
 import { useRoute } from 'ziggy-js'
+import axios from 'axios'
 
 
 const breadcrumbs = [
   { title: 'Listado de Prospectos', href: '/comite' },
-  { title: 'Comité Factoring Cliente', href: '/comite/factoring-a' },
+  { title: 'Comité Factoring Cliente', href: '/comite/factoring/cliente' },
 ]
-
-/*
-const route = useRoute()
-//const id = route.params.id
-
-const ruta = route.params
-
-console.log(ruta);
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-
-// Obtener el valor de un parámetro específico
-const id = urlParams.get('id');
-const nombre = urlParams.get('nombre');
-
-console.log('ID:', id);
-console.log('Nombre:', nombre);
-*/
 
 // Estados de carga
 const guardando = ref(false)
-
-
 
 const page = usePage()
 const id = ref(page.props.id ?? [])
 const prospecto = ref(page.props.prospecto ?? [])
 const reporte = ref(page.props.reporte ?? [])
-/*
-		const entidad_apefac = ref(entidad_apefac)
-		const endeudamiento_apefac = ref(endeudamiento_apefac)
-		const endeudamiento_pomedio_6_apefac = ref(endeudamiento_pomedio_6_apefac)
-		const entidadcliente_situacion_sf_apefac = ref(entidadcliente_situacion_sf_apefac)
-		const endeudamiento_bancario = ref(endeudamiento_bancario)
-		const cuenta_con_protestos = ref(cuenta_con_protestos)
-		const protestos = ref(protestos)
-		const rl_nombre = ref(rl_nombre)
-		const situacion_sf = ref(situacion_sf)
-		const edad = ref(edad)
-		const comentarios_area_riesgos = ref(comentarios_area_riesgos)
-		const comentarios_area_comercial = ref(comentarios_area_comercial)
 
-*/
+
+const actualizarProspecto = async () =>  {
+    try {
+        const res = await axios.post(`/api/comite/actualizar/${id.value}`, {
+          fecha_reporte_tributario : prospecto.value[0].fecha_reporte_tributario,
+          fecha_sentinel: prospecto.value[0].fecha_sentinel,
+          /*entidad_apefac: prospecto.value[0].entidad_apefac,
+          endeudamiento_apefac: prospecto.value[0].endeudamiento_apefac,
+          endeudamiento_pomedio_6_apefac: prospecto.value[0].endeudamiento_pomedio_6_apefac,*/
+          cliente_situacion_sf: prospecto.value[0].cliente_situacion_sf,
+          endeudamiento_bancario: prospecto.value[0].endeudamiento_bancario,
+          cuenta_con_protestos: prospecto.value[0].cuenta_con_protestos,
+          protestos: prospecto.value[0].protestos,
+          rl_nombre: prospecto.value[0].rl_nombre,
+          situacion_sf: prospecto.value[0].situacion_sf,
+          edad: prospecto.value[0].edad,
+          comentarios_area_riesgos: prospecto.value[0].comentarios_area_riesgos,
+          comentarios_area_comercial: prospecto.value[0].comentarios_area_comercial,
+          comentarios_area_operaciones: prospecto.value[0].comentarios_area_operaciones,
+          linea_cliente_sugerido: prospecto.value[0].linea_cliente_sugerido,
+          anticipo_sugerido: prospecto.value[0].anticipo_sugerido,
+          monto_comision_sugerido: prospecto.value[0].monto_comision_sugerido,
+          tasa_tem_sugerido: prospecto.value[0].tasa_tem_sugerido,
+          adelanto_sugerido: prospecto.value[0].adelanto_sugerido,
+          linea_adelanto_sugerido: prospecto.value[0].linea_adelanto_sugerido,
+          linea_cliente_definitivo: prospecto.value[0].linea_cliente_definitivo,
+          anticipo_definitivo: prospecto.value[0].anticipo_definitivo,
+          monto_comision_definitivo: prospecto.value[0].monto_comision_definitivo,
+          tasa_tem_definitivo: prospecto.value[0].tasa_tem_definitivo,
+          adelanto_definitivo: prospecto.value[0].adelanto_definitivo,
+          linea_adelanto_definitivo: prospecto.value[0].linea_adelanto_definitivo,
+        })
+
+        if (res.status === 200 || res.status === 201) {
+            //router.visit('/comite/factoring/aceptante')
+        }
+    } catch (err: any) {
+        console.error('Error al guardar reporte:', err)
+    }
+}
+
 
 </script>

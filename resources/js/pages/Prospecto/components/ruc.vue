@@ -1,12 +1,47 @@
 <template>
     <form @submit.prevent="guardarProspecto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
 
+          <!-- <p class="text-black-fincore text-sm mb-0">Selecciona el tipo de producto:</p>
+          <Select v-model="tipoProductoElegido">
+            <FormField name="tipo">
+              <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start h-[36px] py-[4px] px-3 mb-[20px] active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3">
+                <SelectValue placeholder="Tipo de producto"/>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Elige el tipo</SelectLabel>
+                  <SelectItem v-for="item in tipoProducto" :key="item" :value="item" class="">
+                    {{ item }}
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </FormField>
+          </Select> -->
+          <FormField name="tipo" v-slot="{ componentField }">
+            <FormItem class="col-span-1 md:col-span-2 lg:col-span-3">
+              <FormLabel class="block">Selecciona el tipo de producto:</FormLabel>
+              <FormControl>
+                <Select v-model="tipoProductoElegido">
+                  <SelectTrigger className="w-full border border-gray-200 rounded-lg text-start h-[36px] py-[4px] px-3 mb-[20px] active:border-gray-200">
+                    <SelectValue placeholder="Tipo de producto"/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Elige el tipo</SelectLabel>
+                      <SelectItem v-for="item in tipoProducto" :key="item" :value="item">
+                        {{ item }}
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
+                {{ componentField.errorMessage }}
+              </p>
+            </FormItem>
+          </FormField>
 
-    
-
-
-
-            <!-- RUC -->
             <FormField name="ruc" v-slot="{ componentField }">
               <FormItem>
                 <FormLabel class="block">RUC <span class="text-red-600">*</span></FormLabel>
@@ -23,39 +58,6 @@
               </FormItem>
             </FormField>
 
-<!--
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'RUC'" name="dni" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">DNI<span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input id="dni" v-bind="componentField" @blur="consultarRuc" @keyup.enter="consultarRuc"
-                    class="w-full shadow-none rounded-lg border-gray-200" :disabled="consultandoRuc" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-                <p v-if="consultandoRuc" class="text-blue-600 text-sm mt-1">
-                  Consultando RUC...
-                </p>
-              </FormItem>
-            </FormField>
-
-            <FormField v-if="tipoDocumentoElegido === 'DNI' || tipoDocumentoElegido === 'RUC'" name="ce" v-slot="{ componentField }">
-              <FormItem>
-                <FormLabel class="block">CE<span class="text-red-600">*</span></FormLabel>
-                <FormControl>
-                  <Input id="ce" v-bind="componentField" @blur="consultarRuc" @keyup.enter="consultarRuc"
-                    class="w-full shadow-none rounded-lg border-gray-200" :disabled="consultandoRuc" />
-                </FormControl>
-                <p v-if="componentField.errorMessage" class="text-red-600 text-sm mt-1">
-                  {{ componentField.errorMessage }}
-                </p>
-                <p v-if="consultandoRuc" class="text-blue-600 text-sm mt-1">
-                  Consultando RUC...
-                </p>
-              </FormItem>
-            </FormField>
-        -->
 
 
             <FormField name="activity_start_date" v-slot="{ componentField }">
@@ -267,6 +269,13 @@
               <Button type="submit" :disabled="guardando" class="bg-skyblue-fincore">
                 {{ guardando ? 'Guardando...' : 'Guardar' }}
               </Button>
+
+              <Button v-if="botonSubirReporte" type="button" class="ms-5 bg-skyblue-fincore" @click="router.visit(`/prospectos/prospecto/reporte/${idProspecto}`)">
+                {{ guardando ? 'Guardando...' : 'Subir Reporte' }}
+              </Button>
+              <Button v-if="botonAceptante" type="button" class="ms-5 bg-skyblue-fincore" @click="router.visit(`/prospectos/prospecto/aceptante/${idProspecto}`)">
+                {{ guardando ? 'Guardando...' : 'Aceptante' }}
+              </Button>
             </div>
           </form>
 
@@ -314,9 +323,14 @@ const tipoDocumentoElegido = ref('')
 const tipoDocumento = ref(
   ['DNI', 'RUC', 'Carnet Extranjería']
 )
+const tipoProducto = ref(
+  ['Factoring', 'Confirming']
+)
+const tipoProductoElegido = ref('')
 const name = ref('')
 
 const formSchema = toTypedSchema(z.object({
+  tipo: z.string(),
   ruc: z.string().length(11, 'RUC debe tener 11 dígitos'),
   business_name: z.string().min(1, 'Requerido'),
   trade_name: z.string().optional(),
@@ -341,6 +355,7 @@ const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useFor
   validationSchema: formSchema,
   initialValues: {
     ruc: '',
+    tipo: '',
     business_name: '',
     trade_name: '',
     address: '',
@@ -427,6 +442,10 @@ const consultarRuc = async () => {
   }
 }
 
+const idProspecto = ref(0)
+const botonSubirReporte = ref(false)
+const botonAceptante = ref(false)
+
 const guardarProspecto = handleSubmit(async (formData) => {
   guardando.value = true
 
@@ -435,7 +454,10 @@ const guardarProspecto = handleSubmit(async (formData) => {
 
     if (res.status === 200 || res.status === 201) {
       toast.success(res.data.message || 'Prospecto guardado exitosamente')
-      router.visit('/prospectos/prospecto/reporte')
+      idProspecto.value = res.data.id
+      botonSubirReporte.value = true
+      botonAceptante.value = true
+      //router.visit(`/prospectos/prospecto/reporte/${res.data.id}`)
     }
   } catch (err: any) {
     console.error('Error al guardar prospecto:', err)

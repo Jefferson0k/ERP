@@ -24,25 +24,47 @@ class Supplier extends Model{
         'website',
         'notes',
 
-        'dni', //tony
-        'ce', //tony
-        'nombre', //tony
-        'fecha_nacimiento', //tony
-        'sexo', //tony
-        'estado_civil', //tony
-        'numero_movil', //tony
+        'dni',
+        'ce',
+        'tipo_documento',
+        'tipo',
+        'id_factoring',
 
-        'entidad_apefac', //tony
-        'endeudamiento_apefac', //tony
-        'endeudamiento_pomedio_6_apefac', //tony
-        'entidadcliente_situacion_sf_apefac', //tony
-        'endeudamiento_bancario', //tony
-        'cuenta_con_protestos', //tony
-        'protestos', //tony
-        'rl_nombre', //tony
-        'situacion_sf', //tony
-        'edad', //tony
-        'comentarios_area_riesgos', //tony
-        'comentarios_area_comercial', //tony
+        'fecha_reporte_tributario',
+        'fecha_sentinel',
+        'top',
+        'ventas_aproximadas',
+        'nombre',
+        'fecha_nacimiento',
+        'sexo',
+        'estado_civil',
+        'numero_movil',
+
+        'entidad_apefac',
+        'endeudamiento_apefac',
+        'endeudamiento_pomedio_6_apefac',
+        'cliente_situacion_sf',
+        'endeudamiento_bancario',
+        'cuenta_con_protestos',
+        'protestos',
+        'rl_nombre',
+        'situacion_sf',
+        'edad',
+        'comentarios_area_riesgos',
+        'comentarios_area_comercial',
+        'comentarios_area_operaciones',
+
+        'linea_cliente_sugerido',
+        'anticipo_sugerido',
+        'monto_comision_sugerido',
+        'tasa_tem_sugerido',
+        'adelanto_sugerido',
+        'linea_adelanto_sugerido',
+        'linea_cliente_definitivo',
+        'anticipo_definitivo',
+        'monto_comision_definitivo',
+        'tasa_tem_definitivo',
+        'adelanto_definitivo',
+        'linea_adelanto_definitivo',
     ];
 }

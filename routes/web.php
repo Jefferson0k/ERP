@@ -26,14 +26,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/prospectos', [ProspectoController::class, 'index'])->name('prospecto');
     Route::prefix('prospectos')->group(function () {
         Route::get('/prospecto', [ProspectoController::class, 'prospecto'])->name('prospecto.reporte');
-        Route::get('/prospecto/reporte', [ProspectoController::class, 'reporte'])->name('prospecto.reporte');
+        Route::get('/prospecto/reporte/{id}', [ProspectoController::class, 'reporte'])->name('prospecto.reporte');
+        Route::get('/prospecto/aceptante/{id}', [ProspectoController::class, 'aceptante'])->name('prospecto.aceptante');
     });
 
     Route::get('/comite', [ComiteController::class, 'index'])->name('comite');
     Route::prefix('comite')->group(function () {
-        Route::get('/factoring-a/{id}', [ComiteController::class, 'factoringA'])->name('comite.factoring.a');
-        Route::get('/factoring-b', [ComiteController::class, 'factoringB'])->name('comite.factoring.b');
-        Route::get('/confirming', [ComiteController::class, 'confirming'])->name('comite.confirming');
+        Route::get('/factoring/cliente/{id}', [ComiteController::class, 'factoringCliente'])->name('comite.factoring.cliente');
+        Route::get('/factoring/aceptante/{id}', [ComiteController::class, 'factoringAceptante'])->name('comite.factoring.aceptante');
+        Route::get('/confirming/{id}', [ComiteController::class, 'confirming'])->name('comite.confirming');
     });
 });
 

@@ -3,6 +3,21 @@
 
           <form @submit.prevent="guardarProspecto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
+          <p class="text-black-fincore text-sm mb-0">Selecciona el tipo de producto:</p>
+          <Select v-model="tipoProductoElegido">
+            <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start h-[36px] py-[4px] px-3 mb-[20px] active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3">
+              <SelectValue placeholder="Tipo de producto"/>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Elige el tipo</SelectLabel>
+                <SelectItem v-for="item in tipoProducto" :key="item" :value="item" class="">
+                  {{ item }}
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
             <FormField class="" name="ce" v-slot="{ componentField }">
               <FormItem class="!hidden">
                 <FormLabel class="block">CE<span class="text-red-600">*</span></FormLabel>
@@ -165,6 +180,13 @@
               <Button type="submit" :disabled="guardando" class="bg-skyblue-fincore">
                 {{ guardando ? 'Guardando...' : 'Guardar' }}
               </Button>
+              
+              <Button v-if="botonSubirReporte" type="button" class="ms-5 bg-skyblue-fincore" @click="router.visit(`/prospectos/prospecto/reporte/${idProspecto}`)">
+                {{ guardando ? 'Guardando...' : 'Subir Reporte' }}
+              </Button>
+              <Button v-if="botonAceptante" type="button" class="ms-5 bg-skyblue-fincore" @click="router.visit(`/prospectos/prospecto/aceptante/${idProspecto}`)">
+                {{ guardando ? 'Guardando...' : 'Aceptante' }}
+              </Button>
             </div>
           </form>
 
@@ -217,6 +239,10 @@ const tipoDocumentoElegido = ref('')
 const tipoDocumento = ref(
   ['DNI', 'RUC', 'Carnet Extranjería']
 )
+const tipoProducto = ref(
+  ['Factoring', 'Confirming']
+)
+const tipoProductoElegido = ref('')
 const name = ref('')
 
 const formSchema = toTypedSchema(z.object({
@@ -247,7 +273,7 @@ const formSchema = toTypedSchema(z.object({
 const { handleSubmit, resetForm, values, setFieldValue, setFieldError } = useForm<ProspectoCeRequest>({
   validationSchema: formSchema,
   initialValues: {
-    ce: '123456789acb', //tony
+    ce: '123456789acbasdf', //tony
     activity_start_date: '',
     sales_executive: '',
     nombre: '', //tony
@@ -328,6 +354,10 @@ const consultarRuc = async () => {
   }
 }
 
+const idProspecto = ref(0)
+const botonSubirReporte = ref(false)
+const botonAceptante = ref(false)
+
 const guardarProspecto = handleSubmit(async (formData) => {
   guardando.value = true
 
@@ -336,9 +366,10 @@ const guardarProspecto = handleSubmit(async (formData) => {
 
     if (res.status === 200 || res.status === 201) {
       toast.success(res.data.message || 'Prospecto guardado exitosamente')
-      //setTimeout(() => {
-        router.visit('/prospectos/prospecto/reporte')
-      //}, 1500)
+      idProspecto.value = res.data.id
+      botonSubirReporte.value = true
+      botonAceptante.value = true
+      //router.visit(`/prospectos/prospecto/reporte/${res.data.id}`)
     }
   } catch (err: any) {
     console.error('Error al guardar prospecto:', err)

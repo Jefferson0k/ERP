@@ -38,7 +38,7 @@ class ProspectoRucStoreRequest extends FormRequest
             'entidad_apefac'                       => ['nullable', 'string'], //tony
             'endeudamiento_apefac'                 => ['nullable', 'numeric'], //tony
             'endeudamiento_pomedio_6_apefac'       => ['nullable', 'numeric'], //tony
-            'entidadcliente_situacion_sf_apefac'   => ['nullable', 'string'], //tony
+            'cliente_situacion_sf'   => ['nullable', 'string'], //tony
             'endeudamiento_bancario'               => ['nullable', 'numeric'], //tony
             'cuenta_con_protestos'                 => ['boolean'], //tony
             'protestos'                            => ['nullable', 'numeric'], //tony
