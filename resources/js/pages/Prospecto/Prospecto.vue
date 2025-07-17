@@ -28,20 +28,6 @@
             </SelectContent>
           </Select>
 
-          <Select v-model="tipoProductoElegido">
-            <SelectTrigger className="w-full border border-gray-200 rounded-lg focus:border-gray-200 text-start h-[36px] py-[4px] px-3 mb-[20px] active:border-gray-200 col-span-1 md:col-span-2 lg:col-span-3">
-              <SelectValue placeholder="Tipo de producto"/>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Elige el tipo</SelectLabel>
-                <SelectItem v-for="item in tipoProducto" :key="item" :value="item" class="">
-                  {{ item }}
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
           <Ruc v-if="tipoDocumentoElegido === 'RUC'" class="col-span-1 md:col-span-2 lg:col-span-3" />
           <Dni v-if="tipoDocumentoElegido === 'DNI'" class="col-span-1 md:col-span-2 lg:col-span-3" />
           <Ce v-if="tipoDocumentoElegido === 'Carnet Extranjería'" class="col-span-1 md:col-span-2 lg:col-span-3" />

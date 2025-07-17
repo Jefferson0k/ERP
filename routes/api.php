@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CavaliController;
 use App\Http\Controllers\Api\ConsultasDni;
 use App\Http\Controllers\Api\SunatController;
 use App\Http\Controllers\Api\SunatReportController;
+use App\Http\Controllers\Web\ComiteController;
 use App\Http\Controllers\Web\ProspectoController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,7 @@ Route::post('/prospecto/guardar_ruc', [ProspectoController::class, 'guardarRuc']
 Route::post('/prospecto/guardar_dni', [ProspectoController::class, 'guardarDni']);
 Route::post('/prospecto/guardar_ce', [ProspectoController::class, 'guardarCe']);
 Route::post('/prospecto/guardar_sunat_reporte', [ProspectoController::class, 'guardarSunatReporte']);
+Route::post('/prospecto/guardar-aceptante/{id}', [ProspectoController::class, 'guardarAceptante']);
+
+Route::post('/comite/actualizar/{id}', [ComiteController::class, 'actualizar']);
+Route::post('/comite/actualizar-arreglo/{id}', [ComiteController::class, 'actualizarArreglo']);

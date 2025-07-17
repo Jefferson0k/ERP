@@ -30,10 +30,10 @@ class SupplierController extends Controller{
     public function store(SupplierStoreRequests $request){
         $data = $request->validated();
         $data['registration_date'] = now();
-        $supplier = Supplier::create($data);
+        $id = Supplier::create($data);
         return response()->json([
             'message' => 'Supplier created successfully',
-            'data' => $supplier
+            'data' => $id
         ], 201);
     }
     public function list(){

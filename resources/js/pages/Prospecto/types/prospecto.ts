@@ -1,5 +1,6 @@
 export type ProspectoRucRequest = {
   ruc: string;
+  tipo: string;
   business_name: string;
   trade_name?: string;
   address: string;

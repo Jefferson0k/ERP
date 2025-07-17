@@ -27,6 +27,14 @@ return new class extends Migration{
 
             $table->string('dni', 20)->unique()->nullable(); //tony
             $table->string('ce', 20)->unique()->nullable(); //tony
+            $table->string('tipo_documento')->nullable(); //tony
+            $table->string('tipo')->nullable(); //tony
+            $table->integer('id_factoring')->nullable(); //tony
+
+            $table->date('fecha_reporte_tributario')->nullable(); //tony  nuevoooo
+            $table->date('fecha_sentinel')->nullable(); //tony    nuevoooo
+            $table->integer('top')->nullable(); //tony    nuevoooo
+            $table->decimal('ventas_aproximadas', 15, 2)->nullable();  //tony    nuevoooo
             $table->string('nombre')->nullable(); //tony
             $table->date('fecha_nacimiento')->nullable(); //tony
             $table->string('sexo')->nullable(); //tony
@@ -36,7 +44,7 @@ return new class extends Migration{
             $table->string('entidad_apefac')->nullable(); //tony
             $table->decimal('endeudamiento_apefac', 15, 2)->nullable(); //tony
             $table->decimal('endeudamiento_pomedio_6_apefac', 15, 2)->nullable(); //tony
-            $table->string('entidadcliente_situacion_sf_apefac')->nullable(); //tony
+            $table->string('cliente_situacion_sf')->nullable(); //tony
             $table->decimal('endeudamiento_bancario', 15, 2)->nullable(); //tony
             $table->boolean('cuenta_con_protestos')->default(false); //tony
             $table->decimal('protestos', 15, 2)->nullable(); //tony
@@ -45,6 +53,20 @@ return new class extends Migration{
             $table->integer('edad')->nullable(); //tony
             $table->text('comentarios_area_riesgos')->nullable(); //tony
             $table->text('comentarios_area_comercial')->nullable(); //tony
+            $table->text('comentarios_area_operaciones')->nullable(); //tony
+
+            $table->decimal('linea_cliente_sugerido', 15, 2)->nullable(); //tony
+            $table->decimal('anticipo_sugerido', 15, 2)->nullable(); //tony
+            $table->decimal('monto_comision_sugerido', 15, 2)->nullable(); //tony
+            $table->decimal('tasa_tem_sugerido', 15, 2)->nullable(); //tony
+            $table->decimal('adelanto_sugerido', 15, 2)->nullable(); //tony
+            $table->decimal('linea_adelanto_sugerido', 15, 2)->nullable(); //tony
+            $table->decimal('linea_cliente_definitivo', 15, 2)->nullable(); //tony
+            $table->decimal('anticipo_definitivo', 15, 2)->nullable(); //tony
+            $table->decimal('monto_comision_definitivo', 15, 2)->nullable(); //tony
+            $table->decimal('tasa_tem_definitivo', 15, 2)->nullable(); //tony
+            $table->decimal('adelanto_definitivo', 15, 2)->nullable(); //tony
+            $table->decimal('linea_adelanto_definitivo', 15, 2)->nullable(); //tony
         });
     }
 

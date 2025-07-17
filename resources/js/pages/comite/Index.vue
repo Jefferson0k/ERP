@@ -114,7 +114,7 @@ import { ref } from 'vue'
 
 
 const breadcrumbs = [
-  { title: 'Prospectos', href: '/prospectos' },
+  { title: 'Listado de Prospectos', href: '/comite' },
 ]
 
 // Estados de carga
@@ -217,6 +217,16 @@ const columns: ColumnDef<Prospecto>[] = [
     },
     cell: ({ row }) => h('div', { class: '' }, row.getValue('address')),
   },
+  {
+    accessorKey: 'tipo',
+    header: ({ column }) => {
+      return h(Button, {
+        variant: 'ghost',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      }, () => ['Producto', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+    },
+    cell: ({ row }) => h('div', { class: '' }, row.getValue('tipo')),
+  },
   /* {
     accessorKey: 'amount',
     header: () => h('div', { class: 'text-right' }, 'Amount'),
@@ -238,12 +248,24 @@ const columns: ColumnDef<Prospecto>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const prospecto = row.original
-      return h('button', {
-        class: 'bg-skyblue-fincore hover:bg-purpple-fincore text-white font-bold py-1 px-3 rounded',
-        onClick: () => {
-          router.visit(`/comite/factoring-a/${prospecto.id}`)
-        }
-      }, 'Revisar')
+
+      if (prospecto.tipo === 'Factoring') {
+        return h('button', {
+          class: 'bg-skyblue-fincore hover:bg-purpple-fincore text-white font-bold py-1 px-3 rounded',
+          onClick: () => {
+            router.visit(`/comite/factoring/cliente/${prospecto.id}`)
+          }
+        }, 'Revisar')
+      }
+
+      if (prospecto.tipo === 'Confirming') {
+        return h('button', {
+          class: 'bg-skyblue-fincore hover:bg-purpple-fincore text-white font-bold py-1 px-3 rounded',
+          onClick: () => {
+            router.visit(`/comite/confirming/${prospecto.id}`)
+          }
+        }, 'Revisar')
+      }
     }
   }
 

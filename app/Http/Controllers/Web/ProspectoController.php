@@ -7,6 +7,7 @@ use App\Http\Requests\Prospecto\ProspectoDniStoreRequest;
 use App\Http\Requests\Prospecto\ProspectoCeStoreRequest;
 use App\Http\Requests\Prospecto\ProspectoRucStoreRequest;
 use App\Http\Requests\Reporte\SunatReporteStoreRequest;
+use App\Http\Requests\Supplier\SupplierStoreRequests;
 use App\Models\SunatReport;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
@@ -26,50 +27,69 @@ class ProspectoController extends Controller {
         return inertia('prospecto/Prospecto');
     }
 
-    public function reporte() {
-        return inertia('prospecto/Reporte');
+    public function reporte(int $id) {
+        return Inertia::render('prospecto/Reporte', [
+            'id' => $id,
+        ]);
     }
 
     public function guardarRuc(ProspectoRucStoreRequest $request){
         $data = $request->validated();
-        $response = Supplier::create($data);
+        $data['tipo_documento'] = 'ruc'; 
+        $id = DB::table('suppliers')->insertGetId($data);
         return response()->json([
             'message' => 'Prospecto created successfully',
-            'data' => $response
+            'id' => $id,
         ], 201);
     }
 
     public function guardarDni(ProspectoDniStoreRequest $request){
         $data = $request->validated();
-        $response = DB::table('suppliers')->insert($data);
+        $data['tipo_documento'] = 'dni';
+        $id = DB::table('suppliers')->insertGetId($data);
         return response()->json([
             'message' => 'Prospecto created successfully',
-            'data' => $response
+            'id' => $id,
         ], 201);
     }
     public function guardarCe(ProspectoCeStoreRequest $request){
         $data = $request->validated();
-        $response = DB::table('suppliers')->insert($data);
+        $data['tipo_documento'] = 'ce';
+        $id = DB::table('suppliers')->insertGetId($data);
         return response()->json([
             'message' => 'Prospecto created successfully',
-            'data' => $response
+            'data' => $id,
         ], 201);
     }
 
     public function guardarSunatReporte(SunatReporteStoreRequest $request){
-                Log::debug('This is an irequest.');
-        Log::debug($request);
-        Log::debug('This is an irequest.');
         $data = $request->validated();
-
-        Log::debug('This is an informational message.');
-        Log::debug($data);
-        Log::debug('This is an informational message.');
-        //$data['registration_date'] = now();
         $response = SunatReport::create($data);
         return response()->json([
             'message' => 'SunatReport created successfully',
-            'data' => $response
+            'data' => $response,
+        ], 201);
+    }
+
+    public function aceptante(int $id) {
+        $prospecto = DB::table('suppliers')->where('id', $id)->get();
+        $reporte = SunatReport::first();
+        return Inertia::render('prospecto/Aceptante', [
+            'id' => $id,
+            'prospecto' => $prospecto,
+            'reporte' => $reporte,
+        ]);
+    }
+
+    public function guardarAceptante(SupplierStoreRequests $request, int $id) {
+        $data = $request->validated();
+        $data['id_factoring'] = $id;
+        $data['tipo'] = 'Factoring Aceptante';
+        $id_aceptante = DB::table('suppliers')->insertGetId($data);
+        $response = DB::table('suppliers')->where('id', $id)->update(['id_factoring' => $id_aceptante]);
+        return response()->json([
+            'message' => 'Aceptante saved successfully',
+            'response' => $response
         ], 201);
     }
 }

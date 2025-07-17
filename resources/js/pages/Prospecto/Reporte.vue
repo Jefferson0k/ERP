@@ -448,7 +448,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Head, router } from '@inertiajs/vue3'
+import { Head, router, usePage } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import axios from 'axios'
 
@@ -479,6 +479,8 @@ const breadcrumbs = [
   { title: 'Reporte Tributario', href: '/prospectos/prospecto/reporte' },
 ]
 const guardando = ref(false)
+const page = usePage()
+const id = ref(page.props.id ?? [])
 
 // Estados
 const isUploading = ref(false)
@@ -569,7 +571,7 @@ const guardarReporte = async () =>  {
 
     try {
         const res = await axios.post('/api/prospecto/guardar_sunat_reporte', {
-            supplier_id: 1,
+            supplier_id: id.value,
             ano: '2025',
             nombre_comercial:  pdfData.value?.datos_generales.NombreComercial,
             fecha_inscripcion:  convertirFecha(pdfData.value?.datos_generales.FechaInscripcion),
