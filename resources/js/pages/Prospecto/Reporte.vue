@@ -432,11 +432,15 @@
                 </div>
 
                 <div class="pt-5 text-center">
-                    <Button type="button" :disabled="guardando" class="bg-skyblue-fincore" @click="guardarReporte">
-                        {{ guardando ? 'Navegando...' : 'Guardar Reporte Tributario' }}
-                    </Button>
-                    </div>
+									<Button type="button" :disabled="guardando" class="bg-skyblue-fincore" @click="guardarReporte">
+										{{ guardando ? 'Navegando...' : 'Guardar Reporte Tributario' }}
+									</Button>
+									
+									<Button v-if="botonAceptante" type="button" class="ms-5 bg-skyblue-fincore" @click="router.visit(`/prospectos/prospecto/aceptante/${id}`)">
+										{{ guardando ? 'Guardando...' : 'Aceptante' }}
+									</Button>
                 </div>
+            </div>
 
             </div>
 
@@ -566,6 +570,9 @@ const obtenerPromedio6 = (value: string | string[]): number => {
   return promedio / lastSix.length
 }
 
+//const idProspecto = ref(0)
+const botonAceptante = ref(false)
+
 const guardarReporte = async () =>  {
     if (!pdfData.value?.datos_generales) return;
 
@@ -599,7 +606,8 @@ const guardarReporte = async () =>  {
 
         if (res.status === 200 || res.status === 201) {
             //toast.success(res.data.message || 'Prospecto guardado exitosamente')
-            router.visit('/prospectos')
+            //router.visit('/prospectos')
+						botonAceptante.value = true
         }
     } catch (err: any) {
         console.error('Error al guardar reporte:', err)

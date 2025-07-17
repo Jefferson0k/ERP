@@ -19,7 +19,7 @@ const mainNavItems: NavItem[] = [
         href: '/comite',
         icon: BookOpen,
     },
-    {
+    /*{
         title: 'Proveedor',
         href: '/dashboard',
         icon: LayoutGrid,
@@ -28,7 +28,7 @@ const mainNavItems: NavItem[] = [
         title: 'Prueba',
         href: '/Supplier',
         icon: Shield,
-    },
+    },*/
 ];
 /*
 const footerNavItems: NavItem[] = [

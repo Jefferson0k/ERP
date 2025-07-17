@@ -354,7 +354,7 @@ const guardarProspecto = handleSubmit(async (formData) => {
       toast.success(res.data.message || 'Prospecto guardado exitosamente')
       idProspecto.value = res.data.id
       botonSubirReporte.value = true
-      botonAceptante.value = true
+      //botonAceptante.value = true
       //router.visit(`/prospectos/prospecto/reporte/${res.data.id}`)
     }
   } catch (err: any) {

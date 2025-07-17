@@ -279,10 +279,7 @@ import FormControl from '@/components/ui/form/FormControl.vue'
 import Button from '@/components/ui/button/Button.vue'
 import Input from '@/components/ui/input/Input.vue'
 import { Textarea } from '@/components/ui/textarea'
-import { useRoute } from 'ziggy-js'
 import axios from 'axios'
-import { ChevronDown, ChevronUp } from 'lucide-vue-next'
-import ListaAceptantes from './components/listaAceptantes.vue'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 const breadcrumbs = [
@@ -298,45 +295,42 @@ const page = usePage()
 const id = ref(page.props.id ?? [])
 const prospecto = ref(page.props.prospecto ?? [])
 
-//const defaultValue = 'item-1'
-
-const actualizarProspecto = async () =>  {
-    console.log(prospecto.value[0].id)
-    console.log(prospecto.value[1].id)
-    console.log(prospecto.value.length)
+const actualizarProspecto = async () => {
+  for (const item of prospecto.value) {
+    console.log(item.id);
     try {
-        const res = await axios.post(`/api/comite/actualizar/${id.value}`, {
-          /*nombre: prospecto.value[0].nombre,
-          business_name: prospecto.value[0].business_name,
-          activity_start_date: prospecto.value[0].activity_start_date,
-          fecha_sentinel: prospecto.value[0].fecha_sentinel,
-          cliente_situacion_sf: prospecto.value[0].cliente_situacion_sf,
-          endeudamiento_bancario: prospecto.value[0].endeudamiento_bancario,
-          cuenta_con_protestos: prospecto.value[0].cuenta_con_protestos,
-          protestos: prospecto.value[0].protestos,
-          rl_nombre: prospecto.value[0].rl_nombre,
-          situacion_sf: prospecto.value[0].situacion_sf,
-          edad: prospecto.value[0].edad,
-          top: prospecto.value[0].top,
-          ventas_aproximadas: prospecto.value[0].ventas_aproximadas,
-          website: prospecto.value[0].website,
-          entidad_apefac: prospecto.value[0].entidad_apefac,
-          endeudamiento_apefac: prospecto.value[0].endeudamiento_apefac,
-          endeudamiento_pomedio_6_apefac: prospecto.value[0].endeudamiento_pomedio_6_apefac,
-          comentarios_area_riesgos: prospecto.value[0].comentarios_area_riesgos,
-          comentarios_area_comercial: prospecto.value[0].comentarios_area_comercial,
-          comentarios_area_operaciones: prospecto.value[0].comentarios_area_operaciones,
-          linea_cliente_sugerido: prospecto.value[0].linea_cliente_sugerido,
-          linea_cliente_definitivo: prospecto.value[0].linea_cliente_definitivo,*/
-          prospecto: prospecto.value,
-        })
+      const res = await axios.post(`/api/comite/actualizar/${item.id}`, {
+        nombre: item.nombre,
+        business_name: item.business_name,
+        activity_start_date: item.activity_start_date,
+        fecha_sentinel: item.fecha_sentinel,
+        cliente_situacion_sf: item.cliente_situacion_sf,
+        endeudamiento_bancario: item.endeudamiento_bancario,
+        cuenta_con_protestos: item.cuenta_con_protestos,
+        protestos: item.protestos,
+        rl_nombre: item.rl_nombre,
+        situacion_sf: item.situacion_sf,
+        edad: item.edad,
+        top: item.top,
+        ventas_aproximadas: item.ventas_aproximadas,
+        website: item.website,
+        entidad_apefac: item.entidad_apefac,
+        endeudamiento_apefac: item.endeudamiento_apefac,
+        endeudamiento_pomedio_6_apefac: item.endeudamiento_pomedio_6_apefac,
+        comentarios_area_riesgos: item.comentarios_area_riesgos,
+        comentarios_area_comercial: item.comentarios_area_comercial,
+        comentarios_area_operaciones: item.comentarios_area_operaciones,
+        linea_cliente_sugerido: item.linea_cliente_sugerido,
+        linea_cliente_definitivo: item.linea_cliente_definitivo,
+      });
 
-        if (res.status === 200 || res.status === 201) {
-            //router.visit('/comite')
-        }
+      if (res.status === 200 || res.status === 201) {
+        //router.visit('/comite')
+      }
     } catch (err: any) {
-        console.error('Error al guardar reporte:', err)
+      console.error('Error al guardar reporte:', err);
     }
+  }
 }
 
 

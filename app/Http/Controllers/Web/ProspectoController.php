@@ -86,10 +86,10 @@ class ProspectoController extends Controller {
         $data['id_factoring'] = $id;
         $data['tipo'] = 'Factoring Aceptante';
         $id_aceptante = DB::table('suppliers')->insertGetId($data);
-        $response = DB::table('suppliers')->where('id', $id)->update(['id_factoring' => $id_aceptante]);
+        //$response = DB::table('suppliers')->where('id', $id)->update(['id_factoring' => $id_aceptante]);
         return response()->json([
             'message' => 'Aceptante saved successfully',
-            'response' => $response
+            'id' => $id
         ], 201);
     }
 }

@@ -14,6 +14,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    /*Route::get('/prospectos', function () {
+        return Inertia::render('prospecto/Index');
+    })->name('dashboard');*/
 
     Route::resource('Supplier', SupplierController::class);
     Route::prefix('panel')->group(function () {

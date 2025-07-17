@@ -7,15 +7,6 @@
 
       <div class="bg-purple-fincore rounded-t-xl p-5">
         <h1 class="m-0 text-white text-3xl font-bold inline-block">Nuevo Aceptante</h1>
-        <Button @click="copiarAceptante" class="float-right text-white" variant="link" aria-label="Mostrar Billetera">
-          +
-        </Button>
-        <Button v-if="aceptante" @click="mostrarAceptante" class="float-right" variant="link" aria-label="Mostrar Billetera">
-          <ChevronUp class="w-4 h-4 mr-2 text-white" />
-        </Button>
-        <Button v-else @click="mostrarAceptante" class="float-right" variant="link" aria-label="Mostrar Billetera">
-          <ChevronDown class="w-4 h-4 mr-2 text-white" />
-        </Button>
       </div>
       
       <div class="inset-ring inset-ring-gray-100 rounded-t-none rounded-b-xl p-5">
@@ -23,7 +14,7 @@
 
           <!-- <form @submit.prevent="guardarProspecto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> -->
 
-	        <div v-if="aceptante" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+	        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
 
                     
             
@@ -304,32 +295,6 @@ const breadcrumbs = [
   { title: 'Aceptante', href: '/prospectos/prospecto/aceptante' },
 ]
 
-const aceptante = ref(true)
-const mostrarAceptante = () => {
-    if (aceptante.value) {
-        aceptante.value = false
-    } else {
-        aceptante.value = true
-    }
-}
-
-const divToCopy = ref<HTMLElement | null>(null)
-
-onMounted(() => {
-  divToCopy.value = document.getElementById("divParaCopiar")
-})
-
-const copiarAceptante = () => {
-  if (divToCopy.value) {
-    const clonedDiv = divToCopy.value.cloneNode(true)
-    const parent = divToCopy.value.parentNode
-    if (parent) {
-      parent.insertBefore(clonedDiv, divToCopy.value.nextSibling)
-    }
-  } else {
-    console.error("No se encontró el div con ID 'divParaCopiar'")
-  }
-}
 
 
 // Estados de carga
@@ -390,7 +355,7 @@ const actualizarProspecto = async () =>  {
         })
 
         if (res.status === 200 || res.status === 201) {
-            //router.visit('/comite')
+          router.visit('/prospectos')
         }
     } catch (err: any) {
         console.error('Error al guardar reporte:', err)
